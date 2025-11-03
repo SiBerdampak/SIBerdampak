@@ -95,7 +95,14 @@ const DonasiPage = () => {
     });
 
     if (!response.ok) throw new Error("Payment initiation failed");
-    else {
+
+    const { token } = await response.json();
+
+    // Close dialog and open payment gateway
+    if (typeof window.snap?.pay === "function") {
+      setIsDialogOpen(false); // Close dialog here
+      window.snap.pay(token);
+
       insertDonation({
         name: username || "",
         message: message || "",
@@ -103,13 +110,6 @@ const DonasiPage = () => {
         order_id: order_id,
         email: email || "",
       });
-    }
-    const { token } = await response.json();
-
-    // Close dialog and open payment gateway
-    if (typeof window.snap?.pay === "function") {
-      setIsDialogOpen(false); // Close dialog here
-      window.snap.pay(token);
     } else {
       throw new Error("Payment gateway not available");
     }

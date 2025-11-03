@@ -9,6 +9,7 @@ export interface DonationData {
   donation_amount: number;
   order_id?: string;
   email?: string;
+  payment_status?: string;
 }
 
 export async function insertDonation({
@@ -30,5 +31,25 @@ export async function insertDonation({
 
   if (error) {
     console.error("Error inserting donation:", error);
+  }
+}
+
+export async function updateDonationStatus({
+  order_id,
+  payment_status,
+}: DonationData) {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("donation")
+    .update({ payment_status })
+    .eq("order_id", order_id)
+    .select();
+
+  if (data) {
+    console.log("Donation updated:", data);
+  }
+
+  if (error) {
+    console.error("Error updating donation:", error);
   }
 }
