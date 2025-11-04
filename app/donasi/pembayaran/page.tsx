@@ -166,7 +166,7 @@ const DonasiPage = () => {
         />
       </div>
       <div className="flex flex-col bg-white p-20 z-50 min-h-screen">
-        <h2 className="text-[64px] text-[#CBFF08] font-bold mb-1">
+        <h2 className="text-[64px] text-[#CBFF08] font-bold text-center lg:text-left mb-5">
           Donasi Sekarang
         </h2>
         <Form {...form}>
