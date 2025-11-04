@@ -6,19 +6,33 @@ import Image from "next/image";
 
 const DonasiPage = () => {
   return (
-    <div className="grid grid-cols-2 bg-[#114CC8] min-h-screen px-20 justify-center gap-x-10 pt-20">
-      <div className="flex flex-row">
+    <div className="flex flex-col lg:grid lg:grid-cols-2 bg-[#114CC8] min-h-screen px-5 lg:px-20 justify-center gap-x-10 pt-20 overflow-hidden relative ">
+      <Image
+        src="/images/asteriks.png"
+        width={965}
+        height={950}
+        alt="placeholder"
+        className="object-cover w-[28rem] h-fit absolute -bottom-[8rem] -left-[8rem]"
+      />
+      <Image
+        src="/images/asset1.png"
+        width={5527}
+        height={2070}
+        alt="placeholder"
+        className="object-cover scale-[2] w-full h-fit absolute -top-[10rem] left-[5rem]"
+      />
+      <div className="flex flex-row z-10">
         <Image
-          src="/images/placeholder1.png"
-          width={586}
-          height={391}
+          src="/images/orang1.png"
+          width={1172}
+          height={782}
           alt="placeholder"
-          className="object-cover rounded-xl w-full h-fit"
+          className="object-cover w-full h-fit rounded-lg"
         />
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col z-10">
         <h2 className="text-[64px] text-[#CBFF08] font-bold mb-1">
-          Donasi Sekarang
+          Detail Donasi
         </h2>
         <p className="text-justify text-sm text-white mb-10">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -30,10 +44,10 @@ const DonasiPage = () => {
           culpa qui officia deserunt mollit anim id est laborum.
         </p>
         <span className="text-white font-bold text-sm">Target</span>
-        <ProgressBar />
+        <ProgressBar value={50} />
         <Button
-          className="bg-[#CBFF08] text-white border-0 rounded-lg font-bold hover:cursor-pointer"
-          onClick={() => (window.location.href = "/pembayaran")}
+          className="bg-[#CBFF08] text-white border-0 rounded-lg font-bold hover:cursor-pointer py-8 text-xl"
+          onClick={() => (window.location.href = "/donasi/pembayaran")}
         >
           Donasi
         </Button>
