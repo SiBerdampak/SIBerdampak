@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import {
   Form,
   FormControl,
@@ -16,6 +15,8 @@ import { useForm } from "react-hook-form";
 import { detailDonasi, DetailDonasiSchema } from "@/lib/validation";
 import { cn } from "@/lib/utils";
 import { insertDonation } from "@/utils/supabase/actions";
+import Image from "next/image";
+import React from "react";
 
 const DonasiPage = () => {
   const [loading, setLoading] = useState(false);
@@ -109,6 +110,7 @@ const DonasiPage = () => {
         donation_amount: price || 0,
         order_id: order_id,
         email: email || "",
+        payment_status: "failed",
       });
     } else {
       throw new Error("Payment gateway not available");
@@ -146,17 +148,24 @@ const DonasiPage = () => {
   };
 
   return (
-    <div className="grid grid-cols-2 bg-[#114CC8] min-h-screen justify-center gap-x-10 ">
-      <div className="flex flex-row">
-        {/* <Image
-          src="/images/placeholder1.png"
-          width={586}
-          height={391}
+    <div className="flex flex-col lg:grid lg:grid-cols-2 bg-[#114CC8] min-h-screen gap-x-10 overflow-hidden relative">
+      <div className="flex flex-row hidden lg:block">
+        <Image
+          src="/images/asteriks.png"
+          width={965}
+          height={950}
           alt="placeholder"
-          className="object-cover rounded-xl w-full h-fit"
-        /> */}
+          className="object-cover w-[28rem] h-fit absolute -bottom-[8rem] -left-[8rem]"
+        />
+        <Image
+          src="/images/asset1.png"
+          width={5527}
+          height={2070}
+          alt="placeholder"
+          className="object-cover scale-[2] w-full h-fit absolute -top-[10rem] left-[5rem]"
+        />
       </div>
-      <div className="flex flex-col bg-white p-20">
+      <div className="flex flex-col bg-white p-20 z-50 min-h-screen">
         <h2 className="text-[64px] text-[#CBFF08] font-bold mb-1">
           Donasi Sekarang
         </h2>

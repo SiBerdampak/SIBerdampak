@@ -18,11 +18,14 @@ export async function insertDonation({
   donation_amount,
   order_id,
   email,
+  payment_status,
 }: DonationData) {
   const supabase = createClient();
   const { data, error } = await supabase
     .from("donation")
-    .insert([{ name, message, donation_amount, order_id, email }])
+    .insert([
+      { name, message, donation_amount, order_id, email, payment_status },
+    ])
     .select();
 
   if (data) {
