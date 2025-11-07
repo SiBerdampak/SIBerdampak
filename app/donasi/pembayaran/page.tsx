@@ -155,14 +155,14 @@ const DonasiPage = () => {
           width={965}
           height={950}
           alt="placeholder"
-          className="object-cover w-[28rem] h-fit absolute -bottom-[8rem] -left-[8rem]"
+          className="object-cover w-md h-fit absolute -bottom-32 -left-32"
         />
         <Image
           src="/images/asset1.png"
           width={5527}
           height={2070}
           alt="placeholder"
-          className="object-cover scale-[2] w-full h-fit absolute -top-[10rem] left-[5rem]"
+          className="object-cover scale-[2] w-full h-fit absolute -top-40 left-20"
         />
       </div>
       <div className="flex flex-col bg-white p-20 z-50 min-h-screen">
@@ -188,7 +188,7 @@ const DonasiPage = () => {
                       type="text"
                       placeholder="Enter your name"
                       {...field}
-                      className="text-[12px] lg:text-[16px] p-[24px]"
+                      className="text-[12px] lg:text-[16px] p-6"
                     />
                   </FormControl>
                   <FormMessage />
@@ -209,7 +209,7 @@ const DonasiPage = () => {
                       type="email"
                       placeholder="Enter your email"
                       {...field}
-                      className="text-[12px] lg:text-[16px] p-[24px]"
+                      className="text-[12px] lg:text-[16px] p-6"
                     />
                   </FormControl>
                   <FormMessage />
@@ -232,7 +232,7 @@ const DonasiPage = () => {
                         type="text"
                         placeholder="Enter your message"
                         {...field}
-                        className="text-[12px] lg:text-[16px] pr-10 p-[24px]"
+                        className="text-[12px] lg:text-[16px] pr-10 p-6"
                       />
                     </div>
                   </FormControl>
@@ -255,7 +255,9 @@ const DonasiPage = () => {
                         type="number"
                         placeholder="Enter your donation amount"
                         {...field}
-                        className="text-[12px] lg:text-[16px] pr-10 p-[24px]"
+                        value={field.value as number | undefined}
+                        onChange={(e) => field.onChange(Number(e.target.value))} // ubah ke number
+                        className="text-[12px] lg:text-[16px] pr-10 p-6"
                       />
                     </div>
                   </FormControl>
@@ -269,7 +271,7 @@ const DonasiPage = () => {
               type="submit"
               disabled={loading}
               className={cn(
-                "w-full hover:cursor-pointer rounded-full bg-[#CBFF08] hover:bg-[#93BA00] text-black transition px-[36px] py-[24px]",
+                "w-full hover:cursor-pointer rounded-full bg-[#CBFF08] hover:bg-[#93BA00] text-black transition px-9 py-6",
                 loading && "opacity-60"
               )}
             >
