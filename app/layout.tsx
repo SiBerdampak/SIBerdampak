@@ -6,6 +6,7 @@ import LoadingScreen from "@/components/loading-screen";
 import PageTransition from "@/components/page-transition";
 import { GeistFont } from "@/lib/font";
 import { cn } from "@/lib/utils";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "SI Berdampak",
@@ -19,11 +20,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={cn(GeistFont.variable)}
-      >
+      <body className={cn(GeistFont.variable)}>
         <LoadingScreen />
-        <PageTransition>{children}</PageTransition>
+        <PageTransition>
+          <Navbar />
+          {children}
+        </PageTransition>
       </body>
     </html>
   );
