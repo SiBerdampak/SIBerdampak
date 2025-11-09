@@ -4,21 +4,8 @@ import "./globals.css";
 import localFont from "next/font/local";
 import LoadingScreen from "@/components/loading-screen";
 import PageTransition from "@/components/page-transition";
-
-const birdsOfParadise = localFont({
-  src: "/fonts/Birds_of_Paradise.ttf",
-  variable: "--font-birds-of-paradise",
-});
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { GeistFont } from "@/lib/font";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "SI Berdampak",
@@ -33,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${birdsOfParadise.variable} ${birdsOfParadise.variable} antialiased`}
+        className={cn(GeistFont.variable)}
       >
         <LoadingScreen />
         <PageTransition>{children}</PageTransition>

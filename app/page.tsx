@@ -1,4 +1,5 @@
 "use client";
+import Typography from "@/components/Typography";
 import Image from "next/image";
 
 export default function Home() {
@@ -21,35 +22,35 @@ export default function Home() {
 
         {/* Content */}
         <div className="relative z-10 flex flex-col justify-center min-h-screen px-6 sm:px-10 md:px-20">
-          <div className="grid md:grid-cols-2 gap-10 items-center py-20">
+          <div className="grid md:grid-cols-2 lg:gap-50 gap-10 items-center py-20">
             {/* Left Text Section */}
-            <div className="space-y-4 max-w-lg">
-              <p className="text-lime-400 font-medium">Lend a Helping Hand</p>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
+            <div className="space-y-4 max-w-2xl">
+              <Typography variant="h6" weight="regular" className="text-lime-400 font-medium">Lend a Helping Hand</Typography>
+              <Typography className="lg:text-7xl sm:text-5xl md:text-6xl font-bold leading-tight text-[#FDFFFF]">
                 Only by Helping Each Other We Can Make World Better
-              </h1>
-              <p className="text-gray-200 text-sm sm:text-base leading-relaxed">
+              </Typography>
+              <Typography variant="t" className="text-gray-200 text-sm sm:text-base leading-relaxed">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu
                 turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus
                 nec fringilla accumsan, risus sem.
-              </p>
+              </Typography>
             </div>
 
             {/* Right Donation Card */}
-            <div className="bg-white/90 text-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg backdrop-blur-md">
-              <h3 className="font-bold text-lg sm:text-xl mb-2">
+            <div className="bg-white/90 text-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg backdrop-blur-md max-w-lg">
+              <Typography variant="h6" className="font-extrabold text-3xl sm:text-xl mb-2">
                 Help Children Get Out of Poverty and Have a Future
-              </h3>
-              <p className="text-sm text-gray-600 mb-6">
+              </Typography>
+              <Typography variant="t" className="text-sm text-gray-600 mb-6">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu
                 turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus
                 nec fringilla accumsan, risus sem.
-              </p>
+              </Typography>
 
               {/* Progress */}
               <div className="mb-2 flex justify-between text-sm font-medium">
-                <span className="text-blue-700">Rp300.000</span>
-                <span className="text-gray-500">Goals Rp500.000</span>
+                <Typography><span className="text-blue-700">Rp300.000</span></Typography>
+                <Typography><span className="text-gray-500">Goals Rp500.000</span></Typography>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-3 mb-2">
                 <div
