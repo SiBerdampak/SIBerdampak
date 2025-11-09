@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import localFont from "next/font/local";
+import LoadingScreen from "@/components/loading-screen";
+import PageTransition from "@/components/page-transition";
 
 const birdsOfParadise = localFont({
   src: "/fonts/Birds_of_Paradise.ttf",
@@ -33,7 +35,8 @@ export default function RootLayout({
       <body
         className={`${birdsOfParadise.variable} ${birdsOfParadise.variable} antialiased`}
       >
-        {children}
+        <LoadingScreen />
+        <PageTransition>{children}</PageTransition>
       </body>
     </html>
   );
