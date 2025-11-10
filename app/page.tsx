@@ -26,32 +26,32 @@ export default function Home() {
           
           {/* Left Text Section */}
           <div className="flex flex-col justify-center space-y-4 sm:space-y-5 lg:space-y-6">
-            <p className="text-sm sm:text-base lg:text-lg font-medium text-lime-400 tracking-wide uppercase">
-              Lend a Helping Hand
-            </p>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-white">
+            <Typography className="text-sm sm:text-base lg:text-lg font-medium text-[#CBFF08] tracking-wide uppercase">
+              Kebaikan Nyata Untuk Sesama
+            </Typography>
+            <Typography className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-white">
               Only by Helping Each Other We Can Make World Better
-            </h1>
-            <p className="text-base sm:text-lg lg:text-xl text-gray-200 leading-relaxed max-w-2xl">
+            </Typography>
+            <Typography className="text-base sm:text-lg lg:text-xl text-gray-200 leading-relaxed max-w-2xl">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem.
-            </p>
+            </Typography>
           </div>
 
           {/* Right Donation Card */}
           <div className="bg-white/95 text-gray-800 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-2xl backdrop-blur-md w-full">
             <div className="space-y-4 sm:space-y-5">
-              <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-gray-900 leading-tight">
+              <Typography className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-gray-900 leading-tight">
                 Help Children Get Out of Poverty and Have a Future
-              </h2>
-              <p className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed">
+              </Typography>
+              <Typography className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem.
-              </p>
+              </Typography>
               
               {/* Progress Section */}
               <div className="pt-2">
                 <div className="flex justify-between text-sm sm:text-base lg:text-lg font-medium mb-2">
-                  <span className="text-blue-700 font-bold">Rp300.000</span>
-                  <span className="text-gray-500">Goals Rp500.000</span>
+                  <span className="text-transparent font-bold">Rp300.000</span>
+                  <span className="text-[#114CC8] font-bold">Goals Rp500.000</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-3 sm:h-3.5 overflow-hidden">
                   <div
@@ -59,12 +59,12 @@ export default function Home() {
                     style={{ width: "60%" }}
                   ></div>
                 </div>
-                <p className="text-right text-sm sm:text-base text-gray-600 mt-2">60%</p>
+                <Typography className="text-right text-sm sm:text-base text-gray-600 mt-2">60%</Typography>
               </div>
             </div>
 
             {/* Button */}
-            <button className="mt-6 sm:mt-8 w-full py-3.5 sm:py-4 text-base sm:text-lg font-semibold bg-blue-700 text-white rounded-lg hover:bg-blue-800 active:scale-[0.98] transition-all duration-300 shadow-lg hover:shadow-xl">
+            <button className="mt-6 sm:mt-8 w-full py-3.5 sm:py-4 text-base sm:text-lg font-semibold bg-[#114CC8] text-white rounded-lg hover:bg-blue-800 active:scale-[0.98] transition-all duration-300 shadow-lg hover:shadow-xl">
               Go Donation
             </button>
           </div>
@@ -87,10 +87,10 @@ export default function Home() {
       {/* Section 2 */}
       <section className="bg-white text-gray-800 min-h-[50vh]">
         <div className="px-6 sm:px-10 md:px-20 py-20">
-          <h2 className="text-3xl font-bold mb-4">Section Kedua</h2>
-          <p className="text-base leading-relaxed">
+          <Typography className="text-3xl font-bold mb-4">Section Kedua</Typography>
+          <Typography className="text-base leading-relaxed">
             Ini adalah section baru dengan background putih. Kamu bisa tambahkan content apa saja di sini. Wave di atas menutupi batas antara background gelap (section 1) dan putih (section 2).
-          </p>
+          </Typography>
         </div>
       </section>
     </main>
