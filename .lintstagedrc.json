@@ -1,0 +1,10 @@
+{
+  "*.{js,jsx,ts,tsx,json,css,md,svg}": ["prettier --write"],
+  "*.{js,jsx,ts,tsx} !(*.test.*)": [
+    "eslint --fix --quiet --max-warnings=0",
+    "tsc --noEmit --pretty --skipLibCheck --noEmitOnError"
+  ],
+  "**/*.{test,spec}.{ts,tsx}": [
+    "jest --bail --findRelatedTests --passWithNoTests"
+  ]
+}
