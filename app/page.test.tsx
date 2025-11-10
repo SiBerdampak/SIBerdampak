@@ -10,6 +10,7 @@ describe("Home Page", () => {
     ).toBeInTheDocument();
   });
 
+  //   Testing
   it("renders donation card", () => {
     render(<Home />);
     // Gunakan getByRole + regex untuk teks panjang
