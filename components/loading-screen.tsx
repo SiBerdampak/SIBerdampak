@@ -6,21 +6,57 @@ import { useEffect, useState } from "react";
 export default function LoadingScreen() {
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [isPageReady, setIsPageReady] = useState(false);
 
   useEffect(() => {
+    const startTime = Date.now();
+    const minLoadingTime = 5000; // 5 detik minimal
+
+    // Deteksi kapan halaman benar-benar siap
+    const checkPageReady = () => {
+      if (document.readyState === "complete") {
+        setIsPageReady(true);
+      }
+    };
+
+    // Check initial state
+    checkPageReady();
+
+    // Listen untuk perubahan readyState
+    document.addEventListener("readystatechange", checkPageReady);
+    window.addEventListener("load", () => setIsPageReady(true));
+
+    // Progress bar animation
     const interval = setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 100) {
+        const elapsedTime = Date.now() - startTime;
+        const timeBasedProgress = (elapsedTime / minLoadingTime) * 100;
+
+        // Progress mengikuti yang lebih lambat antara waktu atau loading sebenarnya
+        let newProgress = Math.min(timeBasedProgress, prev + 2);
+
+        // Jika halaman sudah siap dan minimal waktu tercapai
+        if (isPageReady && elapsedTime >= minLoadingTime) {
           clearInterval(interval);
           setTimeout(() => setIsLoading(false), 500);
           return 100;
         }
-        return prev + 2;
+
+        // Batasi progress di 95% sampai halaman benar-benar siap
+        if (!isPageReady && newProgress > 95) {
+          return 95;
+        }
+
+        return Math.min(newProgress, 100);
       });
     }, 40);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => {
+      clearInterval(interval);
+      document.removeEventListener("readystatechange", checkPageReady);
+      window.removeEventListener("load", checkPageReady);
+    };
+  }, [isPageReady]);
 
   return (
     <AnimatePresence>
@@ -33,7 +69,7 @@ export default function LoadingScreen() {
         >
           {/* Logo */}
           <motion.img
-            src="/images/logosiberdampak.svg" // ganti dengan logo kamu
+            src="/images/logosiberdampak.svg"
             alt="Logo"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -52,7 +88,8 @@ export default function LoadingScreen() {
             />
           </div>
 
-          {/* <span className="mt-3 text-sm text-gray-400">{progress}%</span> */}
+          {/* Uncomment jika ingin tampilkan persentase */}
+          {/* <span className="mt-3 text-sm text-gray-400">{Math.round(progress)}%</span> */}
         </motion.div>
       )}
     </AnimatePresence>
