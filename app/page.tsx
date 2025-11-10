@@ -21,55 +21,59 @@ export default function Home() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col justify-center min-h-screen px-6 sm:px-10 md:px-20">
-          <div className="grid md:grid-cols-2 lg:gap-50 gap-10 items-center py-20">
-            {/* Left Text Section */}
-            <div className="space-y-4 max-w-2xl">
-              <Typography variant="h6" weight="regular" className="text-lime-400 font-medium">Lend a Helping Hand</Typography>
-              <Typography className="lg:text-7xl sm:text-5xl md:text-6xl font-bold leading-tight text-[#FDFFFF]">
-                Only by Helping Each Other We Can Make World Better
-              </Typography>
-              <Typography variant="t" className="text-gray-200 text-sm sm:text-base leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu
-                turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus
-                nec fringilla accumsan, risus sem.
-              </Typography>
-            </div>
+      <div className="relative z-10 flex flex-col justify-center min-h-screen px-4 sm:px-6 lg:px-12 xl:px-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center py-12 sm:py-16 lg:py-20 max-w-7xl mx-auto w-full">
+          
+          {/* Left Text Section */}
+          <div className="flex flex-col justify-center space-y-4 sm:space-y-5 lg:space-y-6">
+            <p className="text-sm sm:text-base lg:text-lg font-medium text-lime-400 tracking-wide uppercase">
+              Lend a Helping Hand
+            </p>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-white">
+              Only by Helping Each Other We Can Make World Better
+            </h1>
+            <p className="text-base sm:text-lg lg:text-xl text-gray-200 leading-relaxed max-w-2xl">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem.
+            </p>
+          </div>
 
-            {/* Right Donation Card */}
-            <div className="bg-white/90 text-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg backdrop-blur-md max-w-lg">
-              <Typography variant="h6" className="font-extrabold text-3xl sm:text-xl mb-2">
+          {/* Right Donation Card */}
+          <div className="bg-white/95 text-gray-800 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-2xl backdrop-blur-md w-full">
+            <div className="space-y-4 sm:space-y-5">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-gray-900 leading-tight">
                 Help Children Get Out of Poverty and Have a Future
-              </Typography>
-              <Typography variant="t" className="text-sm text-gray-600 mb-6">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu
-                turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus
-                nec fringilla accumsan, risus sem.
-              </Typography>
-
-              {/* Progress */}
-              <div className="mb-2 flex justify-between text-sm font-medium">
-                <Typography><span className="text-blue-700">Rp300.000</span></Typography>
-                <Typography><span className="text-gray-500">Goals Rp500.000</span></Typography>
+              </h2>
+              <p className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem.
+              </p>
+              
+              {/* Progress Section */}
+              <div className="pt-2">
+                <div className="flex justify-between text-sm sm:text-base lg:text-lg font-medium mb-2">
+                  <span className="text-blue-700 font-bold">Rp300.000</span>
+                  <span className="text-gray-500">Goals Rp500.000</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-3 sm:h-3.5 overflow-hidden">
+                  <div
+                    className="bg-blue-600 h-full rounded-full transition-all duration-700 ease-out shadow-inner"
+                    style={{ width: "60%" }}
+                  ></div>
+                </div>
+                <p className="text-right text-sm sm:text-base text-gray-600 mt-2">60%</p>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-3 mb-2">
-                <div
-                  className="bg-blue-600 h-3 rounded-full"
-                  style={{ width: "60%" }}
-                ></div>
-              </div>
-              <p className="text-right text-xs text-gray-600 mb-4">60%</p>
-
-              <button className="w-full py-3 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition">
-                Go Donation
-              </button>
             </div>
+
+            {/* Button */}
+            <button className="mt-6 sm:mt-8 w-full py-3.5 sm:py-4 text-base sm:text-lg font-semibold bg-blue-700 text-white rounded-lg hover:bg-blue-800 active:scale-[0.98] transition-all duration-300 shadow-lg hover:shadow-xl">
+              Go Donation
+            </button>
           </div>
         </div>
+      </div>
       </section>
 
       {/* Bottom Wave */}
-      <div className="relative w-full overflow-hidden leading-none max-sm:-mt-[40px] max-md:-mt-[58px] max-lg:-mt-[80px] lg:-mt-[128px] z-[11]">
+      <div className="relative w-full overflow-hidden leading-none max-[500px]:-mt-10 max-[640px]:-mt-[50px] max-md:-mt-[58px] max-lg:-mt-[82px] max-xl:-mt-[115px] max-2xl:-mt-[130px] 2xl:-mt-[160px] z-[11]">
         <Image
           src="/images/landing-wave.svg"
           alt="Bottom wave"
