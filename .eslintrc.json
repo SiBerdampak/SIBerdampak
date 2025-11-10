@@ -1,0 +1,13 @@
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "no-console": "warn",
+    "react-hooks/exhaustive-deps": "warn"
+  },
+  "ignorePatterns": [
+    "jest.config.ts",
+    "jest.setup.ts",
+    "next.config.ts",
+    "*.d.ts"
+  ]
+}

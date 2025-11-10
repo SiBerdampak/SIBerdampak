@@ -1,0 +1,7 @@
+# .eslintignore
+jest.config.ts
+jest.setup.ts
+next.config.ts
+*.d.ts
+node_modules
+.next
