@@ -34,7 +34,7 @@ COPY . .
 
 # Copy env file into container (build-time only)
 # Make sure your .env.local exists in the project root
-COPY .env.local .env.local
+COPY .env .env
 
 # Build the Next.js app
 RUN pnpm build
