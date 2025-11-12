@@ -1,49 +1,44 @@
-# --------------------------
-# 1️⃣ Base image
-# --------------------------
+# Use the official Node.js 20 image
 FROM node:20-alpine AS base
-RUN corepack enable
+
+# Install pnpm globally
+RUN npm install -g pnpm
+
+# Set working directory
 WORKDIR /app
 
-# --------------------------
-# 2️⃣ Dependencies
-# --------------------------
-FROM base AS deps
+# Copy only the lockfile and package file first (for caching)
 COPY package.json pnpm-lock.yaml* ./
+
+# Install dependencies
 RUN pnpm install --frozen-lockfile
 
-# --------------------------
-# 3️⃣ Build stage
-# --------------------------
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+# Copy the rest of the application
 COPY . .
 
-# Important: use NODE_ENV=development for build
-# (so Next.js can access devDependencies like webpack/typescript)
-ENV NODE_ENV=development
-
+# Build the Next.js app
 RUN pnpm build
 
-# --------------------------
-# 4️⃣ Runtime stage
-# --------------------------
-FROM base AS runner
+# Production image
+FROM node:20-alpine AS runner
 WORKDIR /app
 
-# Runtime env
 ENV NODE_ENV=production
+ENV PORT=3000
 
-# Copy only what's needed to run
-COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
+# Copy node_modules and built files from the builder
+COPY --from=base /app/node_modules ./node_modules
+COPY --from=base /app/.next ./.next
+COPY --from=base /app/public ./public
+COPY --from=base /app/package.json ./package.json
 
-# Expose the default Next.js port
+# Coolify will automatically inject your environment variables
+# (You do NOT need to copy .env.local)
+# You can still define defaults here if you want:
+# ENV NEXT_PUBLIC_SUPABASE_URL=""
+# ENV NEXT_PUBLIC_SUPABASE_ANON_KEY=""
+
 EXPOSE 3000
 
-# Start the app
+# Start Next.js
 CMD ["pnpm", "start"]
