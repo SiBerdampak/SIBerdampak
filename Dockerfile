@@ -57,7 +57,7 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 
 # Copy env file into runtime environment
-COPY .env.local .env.local
+COPY .env .env
 
 # Expose Next.js default port
 EXPOSE 3000
