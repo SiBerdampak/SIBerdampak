@@ -31,6 +31,7 @@ import {
 const DonasiPage = () => {
   const [loading, setLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState<null | number>(null);
 
   useEffect(() => {
     // render midtrans snap token
@@ -353,7 +354,9 @@ const DonasiPage = () => {
                             <Typography className="text-xs md:text-sm text-gray-700">
                               Biaya transaksi dan teknologi*
                             </Typography>
-                            <Typography className="text-sm text-gray-700">Rp50.000</Typography>
+                            <Typography className="text-sm text-gray-700">
+                              Rp50.000
+                            </Typography>
                           </div>
                         </div>
                       </div>
@@ -397,9 +400,13 @@ const DonasiPage = () => {
                 </div>
 
                 <DialogFooter className="flex-col sm:flex-col gap-3">
-                  <Button type="submit" className="bg-[#114CC8]">Dokumentasi Donasi</Button>
+                  <Button type="submit" className="bg-[#114CC8]">
+                    Dokumentasi Donasi
+                  </Button>
                   <DialogClose asChild>
-                    <Button variant="outline" className="border-[#114CC8]">Kembali</Button>
+                    <Button variant="outline" className="border-[#114CC8]">
+                      Kembali
+                    </Button>
                   </DialogClose>
                 </DialogFooter>
               </DialogContent>
@@ -481,6 +488,56 @@ const DonasiPage = () => {
                 />
               </div>
 
+              {/* Paket Donasi */}
+              <div className="mt-4 flex flex-col">
+                <FormLabel className="text-[12px] lg:text-[16px] font-bold">
+                  Pilihan Paket Donasi
+                </FormLabel>
+
+                <div className="grid grid-cols-3 gap-3 mt-2">
+                  {[25000, 35000, 45000].map((amount, idx) => (
+                    <button
+                      key={amount}
+                      type="button"
+                      onClick={() => {
+                        setSelectedPackage(amount);
+                        form.setValue("donation_amount", amount); // update form value
+                      }}
+                      className={`py-2 rounded-md border font-semibold text-sm transition
+          ${
+            selectedPackage === amount
+              ? "bg-[#114CC8] text-white"
+              : "bg-white border-gray-300 text-[#114CC8]"
+          }`}
+                    >
+                      Paket {idx + 1}
+                      <br />
+                      Rp{amount.toLocaleString("id-ID")}
+                    </button>
+                  ))}
+                </div>
+
+                <span className="text-center text-xs mx-auto my-2 text-gray-400 font-semibold">
+                  Atau
+                </span>
+                {/* Custom donation option */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedPackage(null);
+                    form.setValue("donation_amount", 0);
+                  }}
+                  className={` py-2 w-full rounded-md border text-sm font-semibold transition
+      ${
+        selectedPackage === null
+          ? "bg-[#114CC8] text-white"
+          : "bg-white border-gray-300 text-[#114CC8]"
+      }`}
+                >
+                  Donasi Sukarela
+                </button>
+              </div>
+
               <div className="mt-4">
                 <FormField
                   control={form.control}
@@ -496,11 +553,16 @@ const DonasiPage = () => {
                             type="number"
                             placeholder="Masukkan jumlah donasi"
                             {...field}
+                            disabled={selectedPackage !== null} // disable when paket dipilih
                             value={field.value as number | undefined}
                             onChange={(e) =>
                               field.onChange(Number(e.target.value))
-                            } // ubah ke number
-                            className="lg:text-[14px] text-[12px] text-[#A6ACB3] py-[6px] px-[12px] rounded-[6px]"
+                            }
+                            className={cn(
+                              "lg:text-[14px] text-[12px] text-[#A6ACB3] py-[6px] px-[12px] rounded-[6px]",
+                              selectedPackage !== null &&
+                                "bg-gray-100 cursor-not-allowed"
+                            )}
                           />
                         </div>
                       </FormControl>

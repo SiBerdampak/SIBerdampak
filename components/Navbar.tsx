@@ -12,12 +12,13 @@ const navItems = [
 const Navbar = () => {
   const pathname = usePathname();
   const [isHovered, setIsHovered] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const isHome = pathname === "/" || pathname === "/donasi";
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full z-99 transition-all duration-300 ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isHome
           ? "translate-y-0 opacity-100"
           : isHovered
@@ -27,17 +28,28 @@ const Navbar = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <nav className="flex flex-row bg-gradient-to-r from-[#061E4F] to-[#0E45B5] justify-between px-10 py-5 shadow-lg">
-        <div className="flex flex-row">
+      <nav className="flex flex-row bg-gradient-to-r from-[#061E4F] to-[#0E45B5] justify-between px-6 py-5 shadow-lg">
+        {/* LOGO */}
+        <div className="flex flex-row items-center">
           <Image
             src="/images/siberdampak_navbar_logo.png"
-            width={248}
-            height={52}
+            width={124}
+            height={26}
             alt="SIBerdampak Logo"
-            className="w-fit h-full"
+            className="hidden md:block h-auto w-auto"
+          />
+
+          <Image
+            src="/images/logo_siberdampak_kecil.png"
+            width={25}
+            height={25}
+            alt="SIBerdampak Logo"
+            className="block md:hidden h-auto w-auto"
           />
         </div>
-        <div className="flex flex-row text-white text-center items-center">
+
+        {/* DESKTOP NAV */}
+        <div className="hidden md:flex flex-row text-white text-center items-center">
           {navItems.map((item) => (
             <a
               key={item.path}
@@ -48,7 +60,31 @@ const Navbar = () => {
             </a>
           ))}
         </div>
+
+        {/* HAMBURGER BUTTON (MOBILE) */}
+        <button
+          className="md:hidden text-white text-3xl"
+          onClick={() => setOpen(!open)}
+        >
+          ☰
+        </button>
       </nav>
+
+      {/* MOBILE DROPDOWN MENU */}
+      {open && (
+        <div className="md:hidden bg-[#0E45B5] text-white flex flex-col px-6 py-4 shadow-lg">
+          {navItems.map((item) => (
+            <a
+              key={item.path}
+              href={item.path}
+              className="py-2 border-b border-white/20"
+              onClick={() => setOpen(false)}
+            >
+              {item.name}
+            </a>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
