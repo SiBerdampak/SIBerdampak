@@ -17,7 +17,16 @@ import { cn } from "@/lib/utils";
 import { insertDonation } from "@/utils/supabase/actions";
 import Image from "next/image";
 import Typography from "@/components/Typography";
-import Link from "next/link";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const DonasiPage = () => {
   const [loading, setLoading] = useState(false);
@@ -238,8 +247,8 @@ const DonasiPage = () => {
           </div>
 
           {/* Tombol */}
-          <div className="grid grid-cols-2 gap-4 mt-4">
-            <button className="flex items-center justify-center gap-2 bg-[#114CC8] text-white font-medium py-2 px-4 rounded-[6px]">
+          <div className="grid grid-cols-1 gap-4 mt-4">
+            {/* <button className="flex items-center justify-center gap-2 bg-[#114CC8] text-white font-medium py-2 px-4 rounded-[6px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-5 h-5"
@@ -261,31 +270,140 @@ const DonasiPage = () => {
                 />
               </svg>
               Para Orang Baik
-            </button>
+            </button> */}
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="flex items-center justify-center gap-2 bg-[#114CC8] hover:bg-[#0e3da2] text-white font-medium py-2 px-4 rounded-[6px]">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8c1.105 0 2-.672 2-1.5S13.105 5 12 5s-2 .672-2 1.5S10.895 8 12 8z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 10H5a2 2 0 00-2 2v6h18v-6a2 2 0 00-2-2z"
+                    />
+                  </svg>
+                  Penggunaan Dana
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-sm:max-w-[425px] max-w-[612px] rounded-[14px]">
+                <DialogHeader>
+                  <DialogTitle className="text-[32px] max-sm:text-2xl font-bold text-[#114CC8] font-Geist">
+                    Rincian Penggunaan Dana
+                  </DialogTitle>
+                  <DialogDescription>
+                    <div>
+                      <Typography className="max-sm:text-sm max-md:text-[18px] text-lg font-bold text-[#151624]">
+                        Status Dana Terkumpul
+                      </Typography>
+                      <Typography className="max-sm:text-sm max-md:text-[18px] text-lg font-normal text-[#151624]">
+                        Penggalangan dana sudah terkumpul selama 3 hari
+                      </Typography>
+                    </div>
+                  </DialogDescription>
+                </DialogHeader>
 
-            <button className="flex items-center justify-center gap-2 bg-[#114CC8] text-white font-medium py-2 px-4 rounded-[6px]">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8c1.105 0 2-.672 2-1.5S13.105 5 12 5s-2 .672-2 1.5S10.895 8 12 8z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 10H5a2 2 0 00-2 2v6h18v-6a2 2 0 00-2-2z"
-                />
-              </svg>
-              Penggunaan Dana
-            </button>
+                <div className="grid gap-4">
+                  {/* Total Amount */}
+                  <div className="grid gap-3">
+                    <div className="flex items-center justify-between pb-2 border-b-2 border-gray-200">
+                      <div className="flex items-center gap-3">
+                        <span className="px-4 py-1.5 bg-blue-600 text-white text-sm font-bold rounded-full">
+                          100%
+                        </span>
+                        <span className="text-base font-bold text-gray-900">
+                          Dana Terkumpul
+                        </span>
+                      </div>
+                      <span className="text-base font-bold text-gray-900">
+                        Rp50.000
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Breakdown Sections */}
+                  <div className="grid gap-3">
+                    {/* 95% Section */}
+                    <div className="bg-blue-50 rounded-lg p-4">
+                      <div className="flex items-start gap-3">
+                        <span className="px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded-full">
+                          95%
+                        </span>
+                        <div className="flex-1 space-y-1">
+                          <div className="flex justify-between items-start">
+                            <Typography className="font-semibold text-gray-900 text-sm">
+                              Dana untuk penggalang dana
+                            </Typography>
+                            <Typography className="font-semibold text-gray-900 text-sm">
+                              Rp300.000
+                            </Typography>
+                          </div>
+                          <div className="flex justify-between items-start">
+                            <Typography className="text-xs md:text-sm text-gray-700">
+                              Biaya transaksi dan teknologi*
+                            </Typography>
+                            <Typography className="text-sm text-gray-700">Rp50.000</Typography>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 5% Section */}
+                    <div className="bg-blue-50 rounded-lg p-4">
+                      <div className="flex items-start gap-3">
+                        <span className="px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded-full">
+                          5%
+                        </span>
+                        <div className="flex-1">
+                          <div className="flex justify-between items-start mb-1">
+                            <Typography className="font-semibold text-gray-900 text-sm">
+                              Dana untuk penggalang dana
+                            </Typography>
+                            <Typography className="font-semibold text-gray-900 text-sm">
+                              Rp300.000
+                            </Typography>
+                          </div>
+                          <Typography className="text-xs md:text-sm text-gray-700 leading-tight text-justify">
+                            Donasi untuk operasional SIBerdampak agar donasi
+                            semakin aman, mudah dan transparan. Maksimal 5% dari
+                            donasi terkumpul
+                          </Typography>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Note */}
+                    <div className="bg-yellow-50 rounded-lg p-3 mt-1">
+                      <Typography className="text-xs md:text-sm text-gray-700 leading-tight text-justify">
+                        * Biaya ini 100% dibayarkan kepada pihak ketiga penyedia
+                        layanan transaksi digital dan Virtual Account, dompet
+                        digital dan QRIS serta layanan notifikasi (SMS, WA &
+                        email) dan server. SIBerdampak tidak mengambil
+                        keuntungan dari layanan ini
+                      </Typography>
+                    </div>
+                  </div>
+                </div>
+
+                <DialogFooter className="flex-col sm:flex-col gap-3">
+                  <Button type="submit" className="bg-[#114CC8]">Dokumentasi Donasi</Button>
+                  <DialogClose asChild>
+                    <Button variant="outline" className="border-[#114CC8]">Kembali</Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
 
           <Form {...form}>
@@ -394,16 +512,16 @@ const DonasiPage = () => {
 
               {/* Submit Button */}
               <div className="mt-4">
-              <Button
-                type="submit"
-                disabled={loading}
-                className={cn(
-                  "w-full hover:cursor-pointer rounded-[6px] bg-[#114CC8] hover:bg-[#1040a7] text-white transition px-4 py-2",
-                  loading && "opacity-60"
-                )}
-              >
-                {loading ? "Loading..." : "Donasi"}
-              </Button>
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className={cn(
+                    "w-full hover:cursor-pointer rounded-[6px] bg-[#114CC8] hover:bg-[#1040a7] text-white transition px-4 py-2",
+                    loading && "opacity-60"
+                  )}
+                >
+                  {loading ? "Loading..." : "Donasi"}
+                </Button>
               </div>
             </form>
           </Form>
