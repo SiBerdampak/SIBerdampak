@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import localFont from "next/font/local";
 import LoadingScreen from "@/components/loading-screen";
-import PageTransition from "@/components/page-transition";
 import { GeistFont } from "@/lib/font";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
@@ -22,10 +19,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn(GeistFont.variable)}>
         <LoadingScreen />
-        <PageTransition>
           <Navbar />
           {children}
-        </PageTransition>
       </body>
     </html>
   );
