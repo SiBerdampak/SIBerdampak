@@ -13,7 +13,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const [isHovered, setIsHovered] = useState(false);
 
-  const isHome = pathname === "/";
+  const isHome = pathname === "/" || pathname === "/donasi/pembayaran";
 
   return (
     <div
