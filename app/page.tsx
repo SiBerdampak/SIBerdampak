@@ -21,10 +21,9 @@ export default function Home() {
         </div>
 
         {/* Content */}
-      <div className="relative z-10 flex items-center min-h-screen px-4 md:px-8 lg:px-12 xl:px-20 py-12 md:py-16">
+        <div className="relative z-10 flex items-center min-h-screen px-4 md:px-8 lg:px-12 xl:px-20 py-12 md:py-16">
           <div className="w-full max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
-              
               {/* Left Text Section */}
               <div className="space-y-4 md:space-y-6">
                 <p className="text-sm md:text-base lg:text-lg font-medium text-[#CBFF08] tracking-wide uppercase">
@@ -34,7 +33,9 @@ export default function Home() {
                   Only by Helping Each Other We Can Make World Better
                 </h1>
                 <p className="text-base md:text-lg lg:text-xl text-gray-200 leading-relaxed">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
+                  eu turpis molestie, dictum est a, mattis tellus. Sed
+                  dignissim, metus nec fringilla accumsan, risus sem.
                 </p>
               </div>
 
@@ -45,14 +46,20 @@ export default function Home() {
                     Help Children Get Out of Poverty and Have a Future
                   </h2>
                   <p className="text-sm md:text-base lg:text-lg text-gray-600 leading-relaxed">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Etiam eu turpis molestie, dictum est a, mattis tellus. Sed
+                    dignissim, metus nec fringilla accumsan, risus sem.
                   </p>
-                  
+
                   {/* Progress Section */}
                   <div className="pt-3">
                     <div className="flex justify-between text-sm md:text-base lg:text-lg font-medium mb-2">
-                      <span className="text-gray-900 font-bold">Rp 300.000</span>
-                      <span className="text-[#114CC8] font-bold">Goals Rp 500.000</span>
+                      <span className="text-gray-900 font-bold">
+                        Rp 300.000
+                      </span>
+                      <span className="text-[#114CC8] font-bold">
+                        Goals Rp 500.000
+                      </span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-3 md:h-3.5 overflow-hidden">
                       <div
@@ -90,11 +97,74 @@ export default function Home() {
 
       {/* Section 2 */}
       <section className="bg-white text-gray-800 min-h-[50vh]">
-        <div className="px-6 sm:px-10 md:px-20 py-20">
-          <Typography className="text-3xl font-bold mb-4">Section Kedua</Typography>
-          <Typography className="text-base leading-relaxed">
-            Ini adalah section baru dengan background putih. Kamu bisa tambahkan content apa saja di sini. Wave di atas menutupi batas antara background gelap (section 1) dan putih (section 2).
-          </Typography>
+        <div className="px-6 sm:px-10 md:px-20 py-20 flex flex-col">
+          <Image
+            src="/images/about-us-picture.png"
+            alt="About Us Picture"
+            width={1917}
+            height={1216}
+            className="w-3/4 h-fit object-cover mx-auto"
+            priority
+          />
+          <span className="text-3xl font-bold mb-4 text-[#114CC8] text-center">
+            About Us
+          </span>
+          <p className="text-lg leading-relaxed font-regular text-black text-center px-20">
+            Kami adalah platform sosial dari mahasiswa Sistem Informasi Institut
+            Teknologi Sepuluh Nopember yang ingin berdampak bagi masyarakat
+            dengan menyalurkan bantuan berupa makanan, minuman, dan catatan
+            inspiratif kepada mereka yang membutuhkan
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-white text-gray-800 min-h-[50vh] relative">
+        <Image
+          src="/images/book-paper.png"
+          alt="About Us Picture"
+          width={2880}
+          height={2649}
+          className="w-full h-fit absolute object-cover z-10 -translate-x-[4rem]"
+          priority
+        />
+
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-6 sm:px-10 md:px-20 py-20 z-20 translate-y-[35rem]">
+          <div className="max-w-[50rem] text-center">
+            <span className="text-5xl font-bold mb-4 text-[#114CC8]">
+              Our Visions
+            </span>
+
+            <p className="text-lg leading-relaxed font-regular text-black mt-3">
+              Menjadi jembatan kebaikan yang tulus, menghubungkan hati yang
+              ingin berbagi dengan mereka yang membutuhkan, melalui sentuhan
+              teknologi yang sederhana dan bermakna. Dengan demikian,
+              SIBerdampak mendukung peningkatan dalam SDGs poin ke-2 dan 3
+            </p>
+
+            <span className="text-5xl font-bold mb-4 text-[#114CC8] mt-10 block">
+              Our Missions
+            </span>
+
+            {/* Mission Cards */}
+            {[1, 2, 3].map((num, idx) => (
+              <div
+                key={idx}
+                className="rounded-lg bg-[#CBFF08] flex flex-row p-3 max-w-[35rem] mx-auto items-center mb-2"
+              >
+                <div className="text-white rounded-lg bg-[#114CC8] py-2 px-5 font-bold text-[4rem]">
+                  {num}
+                </div>
+                <span className="text-lg font-regular text-black px-3">
+                  {num === 1 &&
+                    "Menciptakan ruang berbagi yang nyaman dan ikhlas, di mana setiap niat baik dapat tersalurkan semudah mengulurkan tangan"}
+                  {num === 2 &&
+                    "Merangkul komunitas dan pegiat usaha lokal untuk tumbuh bersama, merajut jaringan kebaikan yang lebih kuat hingga ke pelosok"}
+                  {num === 3 &&
+                    "Menjaga setiap amanah dengan penuh tanggung jawab, memastikan setiap uluran tangan sampai tujuannya dengan hati yang tenang"}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </main>
