@@ -56,3 +56,26 @@ export async function updateDonationStatus({
     console.error("Error updating donation:", error);
   }
 }
+
+export async function getTotalDonation(): Promise<number> {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from("donation")
+    .select("donation_amount"); // this ALWAYS returns an array
+
+  if (error) {
+    console.error("Error fetching donation:", error);
+    return 0;
+  }
+
+  if (!data || data.length === 0) return 0;
+
+  // Parse and sum all donations
+  const total = data.reduce((acc, row) => {
+    const amount = Number(row.donation_amount) || 0;
+    return acc + amount;
+  }, 0);
+
+  return total;
+}
