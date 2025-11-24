@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { detailDonasi, DetailDonasiSchema } from "@/lib/validation";
 import { cn } from "@/lib/utils";
-import { insertDonation } from "@/utils/supabase/actions";
+import { getTotalDonation, insertDonation } from "@/utils/supabase/actions";
 import Image from "next/image";
 import Typography from "@/components/Typography";
 import {
@@ -32,6 +32,20 @@ const DonasiPage = () => {
   const [loading, setLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState<null | number>(null);
+
+  const [totalDonation, setTotalDonation] = useState(0);
+  const GOAL = 500000;
+
+  useEffect(() => {
+    const fetchTotal = async () => {
+      const total: number = await getTotalDonation();
+      setTotalDonation(total);
+    };
+
+    fetchTotal();
+  }, []);
+
+  const percentage = Math.min(Math.round((totalDonation / GOAL) * 100), 100);
 
   useEffect(() => {
     // render midtrans snap token
@@ -228,12 +242,15 @@ const DonasiPage = () => {
             <div className="flex items-end justify-between">
               <div>
                 <Typography className="text-[#114CC8] font-extrabold text-2xl">
-                  Rp<span>50.0000</span>
+                  Rp<span>{totalDonation.toLocaleString("id-ID")}</span>
                 </Typography>
               </div>
               <div>
                 <Typography className="text-[#151624] text-sm font-medium">
-                  dari <span className="font-bold">Rp300.000</span>
+                  dari{" "}
+                  <span className="font-bold">
+                    Rp {GOAL.toLocaleString("id-ID")}
+                  </span>
                 </Typography>
               </div>
             </div>
@@ -242,7 +259,7 @@ const DonasiPage = () => {
             <div className="w-full h-2 bg-gray-200 rounded-full mt-2">
               <div
                 className="h-2 bg-[#114CC8] rounded-full"
-                style={{ width: "20%" }}
+                style={{ width: `${percentage}%` }}
               ></div>
             </div>
           </div>
@@ -553,10 +570,18 @@ const DonasiPage = () => {
                             type="number"
                             placeholder="Masukkan jumlah donasi"
                             {...field}
-                            disabled={selectedPackage !== null} // disable when paket dipilih
-                            value={field.value as number | undefined}
+                            disabled={selectedPackage !== null}
+                            value={
+                              typeof field.value === "number" && field.value > 0
+                                ? field.value
+                                : ""
+                            }
                             onChange={(e) =>
-                              field.onChange(Number(e.target.value))
+                              field.onChange(
+                                e.target.value === ""
+                                  ? undefined
+                                  : Number(e.target.value)
+                              )
                             }
                             className={cn(
                               "lg:text-[14px] text-[12px] text-[#A6ACB3] py-[6px] px-[12px] rounded-[6px]",

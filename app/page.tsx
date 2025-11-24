@@ -1,8 +1,23 @@
 "use client";
-import Typography from "@/components/Typography";
+import { getTotalDonation } from "@/utils/supabase/actions";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [totalDonation, setTotalDonation] = useState(0);
+  const GOAL = 500000;
+
+  useEffect(() => {
+    const fetchTotal = async () => {
+      const total: number = await getTotalDonation();
+      setTotalDonation(total);
+    };
+
+    fetchTotal();
+  }, []);
+
+  const percentage = Math.min(Math.round((totalDonation / GOAL) * 100), 100);
+
   return (
     <main className="relative text-white">
       {/* Section 1 */}
@@ -55,27 +70,30 @@ export default function Home() {
                   <div className="pt-3">
                     <div className="flex justify-between text-sm md:text-base lg:text-lg font-medium mb-2">
                       <span className="text-gray-900 font-bold">
-                        Rp 300.000
+                        Rp {totalDonation.toLocaleString("id-ID")}
                       </span>
                       <span className="text-[#114CC8] font-bold">
-                        Goals Rp 500.000
+                        Goals Rp {GOAL.toLocaleString("id-ID")}
                       </span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-3 md:h-3.5 overflow-hidden">
                       <div
                         className="bg-blue-600 h-full rounded-full transition-all duration-700 ease-out"
-                        style={{ width: "60%" }}
+                        style={{ width: `${percentage}%` }}
                       ></div>
                     </div>
                     <p className="text-right text-sm md:text-base text-gray-600 mt-2">
-                      60%
+                      {percentage}%
                     </p>
                   </div>
                 </div>
 
                 {/* Button */}
-                <button className="mt-6 md:mt-7 lg:mt-8 w-full py-3 md:py-4 text-base md:text-lg font-semibold bg-[#114CC8] text-white rounded-lg hover:bg-blue-800 active:scale-[0.98] transition-all duration-300 shadow-lg hover:shadow-xl">
-                  Go Donation
+                <button
+                  className="hover:cursor-pointer mt-6 md:mt-7 lg:mt-8 w-full py-3 md:py-4 text-base md:text-lg font-semibold bg-[#114CC8] text-white rounded-lg hover:bg-blue-800 active:scale-[0.98] transition-all duration-300 shadow-lg hover:shadow-xl"
+                  onClick={() => (window.location.href = "/donasi")}
+                >
+                  Go Donate
                 </button>
               </div>
             </div>
