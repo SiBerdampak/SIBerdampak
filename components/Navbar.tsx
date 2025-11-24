@@ -32,19 +32,11 @@ const Navbar = () => {
         {/* LOGO */}
         <div className="flex flex-row items-center">
           <Image
-            src="/images/siberdampak_navbar_logo.png"
-            width={124}
-            height={26}
+            src="/images/logo_siberdampak_putih.png"
+            width={308}
+            height={54}
             alt="SIBerdampak Logo"
-            className="hidden md:block h-auto w-auto"
-          />
-
-          <Image
-            src="/images/logo_siberdampak_kecil.png"
-            width={25}
-            height={25}
-            alt="SIBerdampak Logo"
-            className="block md:hidden h-auto w-auto"
+            className="h-auto w-full scale-[1.3]"
           />
         </div>
 

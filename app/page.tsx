@@ -127,7 +127,7 @@ export default function Home() {
           <span className="text-3xl font-bold mb-4 text-[#114CC8] text-center">
             About Us
           </span>
-          <p className="text-lg leading-relaxed font-regular text-black text-center px-20">
+          <p className="text-lg leading-relaxed font-regular text-black text-center px-5 md:px-20">
             Kami adalah platform sosial dari mahasiswa Sistem Informasi Institut
             Teknologi Sepuluh Nopember yang ingin berdampak bagi masyarakat
             dengan menyalurkan bantuan berupa makanan, minuman, dan catatan
@@ -136,54 +136,55 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-white text-gray-800 min-h-[50vh] relative">
-        <Image
-          src="/images/book-paper.png"
-          alt="About Us Picture"
-          width={2880}
-          height={2649}
-          className="w-full h-fit absolute object-cover z-10 -translate-x-[4rem]"
-          priority
-        />
-
-        <div className="absolute inset-0 flex flex-col items-center justify-center px-6 sm:px-10 md:px-20 py-20 z-20 translate-y-[35rem]">
-          <div className="max-w-[50rem] text-center">
-            <span className="text-5xl font-bold mb-4 text-[#114CC8]">
+      <section className="bg-white text-gray-800 relative min-h-screen overflow-hidden">
+        <div className="max-w-[50rem] text-center mx-auto z-[20] relative mt-[10rem]">
+          {/* Vision Card Background */}
+          <div className="flex flex-col items-center justify-center mx-10 px-2 md:px-8 py-12 bg-[#114CC8] mb-20 rounded-xl shadow-lg z-[20]">
+            <h2 className="text-5xl font-bold mb-4 text-[#CBFF08]">
               Our Visions
-            </span>
-
-            <p className="text-lg leading-relaxed font-regular text-black mt-3">
+            </h2>
+            <p className="w-3/4 text-base leading-relaxed font-normal text-white mt-3">
               Menjadi jembatan kebaikan yang tulus, menghubungkan hati yang
               ingin berbagi dengan mereka yang membutuhkan, melalui sentuhan
               teknologi yang sederhana dan bermakna. Dengan demikian,
               SIBerdampak mendukung peningkatan dalam SDGs poin ke-2 dan 3
             </p>
+          </div>
 
-            <span className="text-5xl font-bold mb-4 text-[#114CC8] mt-10 block">
+          {/* Mission Card Background */}
+          <div className="flex flex-col items-center mx-10 justify-center px-8 py-8 bg-[#114CC8] rounded-xl shadow-lg z-[20]">
+            <h2 className="text-5xl font-bold mb-6 text-[#CBFF08]">
               Our Missions
-            </span>
+            </h2>
 
-            {/* Mission Cards */}
-            {[1, 2, 3].map((num, idx) => (
+            {[1, 2, 3].map((num) => (
               <div
-                key={idx}
-                className="rounded-lg bg-[#CBFF08] flex flex-row p-3 max-w-[35rem] mx-auto items-center mb-2"
+                key={num}
+                className="rounded-lg bg-[#CBFF08] flex flex-row p-3 max-w-[35rem] w-full mx-auto items-center mb-4"
               >
-                <div className="text-white rounded-lg bg-[#114CC8] py-2 px-5 font-bold text-[4rem]">
+                <div className="text-white rounded-lg bg-[#114CC8] py-2 px-5 font-bold text-4xl">
                   {num}
                 </div>
-                <span className="text-lg font-regular text-black px-3">
+                <p className="text-base font-normal text-black px-3 text-left">
                   {num === 1 &&
                     "Menciptakan ruang berbagi yang nyaman dan ikhlas, di mana setiap niat baik dapat tersalurkan semudah mengulurkan tangan"}
                   {num === 2 &&
                     "Merangkul komunitas dan pegiat usaha lokal untuk tumbuh bersama, merajut jaringan kebaikan yang lebih kuat hingga ke pelosok"}
                   {num === 3 &&
                     "Menjaga setiap amanah dengan penuh tanggung jawab, memastikan setiap uluran tangan sampai tujuannya dengan hati yang tenang"}
-                </span>
+                </p>
               </div>
             ))}
           </div>
         </div>
+
+        <Image
+          src="/images/asset1.png"
+          alt="Asset1"
+          width={5527}
+          height={2070}
+          className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-auto h-auto max-w-full max-h-full object-contain z-[10] scale-[1.5]"
+        />
       </section>
     </main>
   );
