@@ -41,7 +41,7 @@ const Navbar = () => {
         </div>
 
         {/* DESKTOP NAV */}
-        <div className="hidden md:flex flex-row text-white text-center items-center">
+        <div className="hidden font-semibold md:flex flex-row text-white text-center items-center">
           {navItems.map((item) => (
             <a
               key={item.path}
@@ -64,12 +64,12 @@ const Navbar = () => {
 
       {/* MOBILE DROPDOWN MENU */}
       {open && (
-        <div className="md:hidden bg-[#0E45B5] text-white flex flex-col px-6 py-4 shadow-lg">
+        <div className="md:hidden  bg-[#0E45B5] text-white flex flex-col px-6 py-4 shadow-lg">
           {navItems.map((item) => (
             <a
               key={item.path}
               href={item.path}
-              className="py-2 border-b border-white/20"
+              className="py-2 border-b border-white/20 font-semibold"
               onClick={() => setOpen(false)}
             >
               {item.name}
