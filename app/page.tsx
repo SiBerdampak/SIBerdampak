@@ -45,25 +45,28 @@ export default function Home() {
                   Kebaikan Nyata Untuk Sesama
                 </p>
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
-                  Only by Helping Each Other We Can Make World Better
+                  Kebaikan yang Kamu Beri, Menghidupkan Harapan Mereka
                 </h1>
                 <p className="text-base md:text-lg lg:text-xl text-gray-200 leading-relaxed">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-                  eu turpis molestie, dictum est a, mattis tellus. Sed
-                  dignissim, metus nec fringilla accumsan, risus sem.
+                  Menjadi jembatan kebaikan yang tulus, menghubungkan hati yang
+                  ingin berbagi dengan mereka yang membutuhkan, melalui sentuhan
+                  teknologi yang sederhana dan bermakna.
                 </p>
               </div>
 
               {/* Right Donation Card */}
               <div className="bg-white/95 text-gray-800 rounded-2xl p-6 md:p-8 lg:p-10 shadow-2xl backdrop-blur-md">
                 <div className="space-y-4 md:space-y-5">
-                  <h2 className="text-xl md:text-2xl lg:text-3xl font-extrabold text-gray-900 leading-tight">
-                    Help Children Get Out of Poverty and Have a Future
+                  <h2 className="text-xl md:text-2xl lg:text-3xl font-extrabold text-[#061E4F] leading-tight">
+                    Satu Klik Kecil, untuk Mereka yang Membutuhkan
                   </h2>
                   <p className="text-sm md:text-base lg:text-lg text-gray-600 leading-relaxed">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Etiam eu turpis molestie, dictum est a, mattis tellus. Sed
-                    dignissim, metus nec fringilla accumsan, risus sem.
+                    Setiap donasi bukan sekadar memberi, tapi juga bentuk
+                    kepedulian yang menumbuhkan harapan. Melalui SIBerdampak,
+                    kamu bisa menyalurkan bantuan dengan mudah, transparan, dan
+                    tepat sasaran. Mari bersama membangun ekosistem berbagi yang
+                    berkelanjutan karena kebaikan akan selalu kembali pada
+                    mereka yang menebarkannya.
                   </p>
 
                   {/* Progress Section */}
