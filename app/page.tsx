@@ -155,7 +155,7 @@ export default function Home() {
           </div>
 
           {/* Mission Card Background */}
-          <div className="flex flex-col items-center mx-10 justify-center px-8 py-8 bg-[#114CC8] rounded-xl shadow-lg z-[20]">
+          <div className="flex flex-col items-center mx-10 justify-center px-8 py-8 bg-[#114CC8] rounded-xl shadow-lg z-[20] mb-6 lg:mb-10">
             <h2 className="text-5xl font-bold mb-6 text-[#CBFF08]">
               Our Missions
             </h2>
