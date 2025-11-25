@@ -10,7 +10,7 @@ export default function LoadingScreen() {
 
   useEffect(() => {
     const startTime = Date.now();
-    const minLoadingTime = 5000; // 5 detik minimal
+    const minLoadingTime = 2000; // 5 detik minimal
 
     // Deteksi kapan halaman benar-benar siap
     const checkPageReady = () => {
