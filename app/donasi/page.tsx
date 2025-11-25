@@ -291,27 +291,7 @@ const DonasiPage = () => {
             </button> */}
             <Dialog>
               <DialogTrigger asChild>
-                <Button className="flex items-center justify-center gap-2 bg-[#114CC8] hover:bg-[#0e3da2] text-white font-medium py-2 px-4 rounded-[6px]">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-5 h-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 8c1.105 0 2-.672 2-1.5S13.105 5 12 5s-2 .672-2 1.5S10.895 8 12 8z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 10H5a2 2 0 00-2 2v6h18v-6a2 2 0 00-2-2z"
-                    />
-                  </svg>
+                <Button className="flex items-center justify-center gap-2 bg-[#114CC8] hover:bg-[#0e3da2] text-white font-medium py-2 px-4 rounded-[6px] hover:cursor-pointer">
                   Penggunaan Dana
                 </Button>
               </DialogTrigger>
@@ -338,14 +318,14 @@ const DonasiPage = () => {
                     <div className="flex items-center justify-between pb-2 border-b-2 border-gray-200">
                       <div className="flex items-center gap-3">
                         <span className="px-4 py-1.5 bg-blue-600 text-white text-sm font-bold rounded-full">
-                          100%
+                          {percentage}%
                         </span>
                         <span className="text-base font-bold text-gray-900">
                           Dana Terkumpul
                         </span>
                       </div>
                       <span className="text-base font-bold text-gray-900">
-                        Rp50.000
+                        Rp{totalDonation.toLocaleString("id-ID")}
                       </span>
                     </div>
                   </div>
@@ -364,7 +344,7 @@ const DonasiPage = () => {
                               Dana untuk penggalang dana
                             </Typography>
                             <Typography className="font-semibold text-gray-900 text-sm">
-                              Rp300.000
+                              Rp {(totalDonation * 0.9).toLocaleString("id-ID")}
                             </Typography>
                           </div>
                           <div className="flex justify-between items-start">
@@ -372,7 +352,8 @@ const DonasiPage = () => {
                               Biaya transaksi dan teknologi*
                             </Typography>
                             <Typography className="text-sm text-gray-700">
-                              Rp50.000
+                              Rp{" "}
+                              {(totalDonation * 0.05).toLocaleString("id-ID")}
                             </Typography>
                           </div>
                         </div>
@@ -388,10 +369,11 @@ const DonasiPage = () => {
                         <div className="flex-1">
                           <div className="flex justify-between items-start mb-1">
                             <Typography className="font-semibold text-gray-900 text-sm">
-                              Dana untuk penggalang dana
+                              Dana untuk operasional
                             </Typography>
                             <Typography className="font-semibold text-gray-900 text-sm">
-                              Rp300.000
+                              Rp{" "}
+                              {(totalDonation * 0.05).toLocaleString("id-ID")}
                             </Typography>
                           </div>
                           <Typography className="text-xs md:text-sm text-gray-700 leading-tight text-justify">
@@ -417,11 +399,23 @@ const DonasiPage = () => {
                 </div>
 
                 <DialogFooter className="flex-col sm:flex-col gap-3">
-                  <Button type="submit" className="bg-[#114CC8]">
+                  <Button
+                    type="button"
+                    className="bg-[#114CC8] hover:cursor-pointer"
+                    onClick={() =>
+                      window.open(
+                        "https://docs.google.com/spreadsheets/d/12YqhsaQiluKsbbYcIC9J3PrEezJ4VzxRy8G-a50clrc/edit?gid=393422695#gid=393422695",
+                        "_blank"
+                      )
+                    }
+                  >
                     Dokumentasi Donasi
                   </Button>
                   <DialogClose asChild>
-                    <Button variant="outline" className="border-[#114CC8]">
+                    <Button
+                      variant="outline"
+                      className="border-[#114CC8] hover:cursor-pointer"
+                    >
                       Kembali
                     </Button>
                   </DialogClose>
@@ -511,8 +505,8 @@ const DonasiPage = () => {
                   Pilihan Paket Donasi
                 </FormLabel>
 
-                <div className="grid grid-cols-3 gap-3 mt-2">
-                  {[25000, 35000, 45000].map((amount, idx) => (
+                <div className="grid grid-cols-1 gap-3 mt-2">
+                  {[15000].map((amount, idx) => (
                     <button
                       key={amount}
                       type="button"
@@ -520,14 +514,14 @@ const DonasiPage = () => {
                         setSelectedPackage(amount);
                         form.setValue("donation_amount", amount); // update form value
                       }}
-                      className={`py-2 rounded-md border font-semibold text-sm transition
+                      className={`py-2 rounded-md border font-semibold text-sm transition hover:cursor-pointer
           ${
             selectedPackage === amount
               ? "bg-[#114CC8] text-white"
               : "bg-white border-gray-300 text-[#114CC8]"
           }`}
                     >
-                      Paket {idx + 1}
+                      Paket
                       <br />
                       Rp{amount.toLocaleString("id-ID")}
                     </button>
@@ -544,7 +538,7 @@ const DonasiPage = () => {
                     setSelectedPackage(null);
                     form.setValue("donation_amount", 0);
                   }}
-                  className={` py-2 w-full rounded-md border text-sm font-semibold transition
+                  className={` py-2 w-full rounded-md border text-sm font-semibold transition hover:cursor-pointer
       ${
         selectedPackage === null
           ? "bg-[#114CC8] text-white"
