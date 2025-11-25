@@ -117,8 +117,8 @@ export default function Home() {
       </div>
 
       {/* Section 2 */}
-      <section className="bg-white text-gray-800 min-h-[50vh]">
-        <div className="px-6 sm:px-10 md:px-20 py-20 flex flex-col">
+      <section className="bg-white text-gray-800 min-h-[20vh]">
+        <div className="px-6 sm:px-10 md:px-20 py-0 flex flex-col">
           <Image
             src="/images/about-us-picture.png"
             alt="About Us Picture"
@@ -139,7 +139,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-white text-gray-800 relative min-h-screen overflow-hidden">
+      <section className="bg-white text-gray-800 relative min-h-[20vh] overflow-hidden">
         <div className="max-w-[50rem] text-center mx-auto z-[20] relative mt-[10rem]">
           {/* Vision Card Background */}
           <div className="flex flex-col items-center justify-center mx-10 px-2 md:px-8 py-12 bg-[#114CC8] mb-20 rounded-xl shadow-lg z-[20]">
@@ -155,7 +155,7 @@ export default function Home() {
           </div>
 
           {/* Mission Card Background */}
-          <div className="flex flex-col items-center mx-10 justify-center px-8 py-8 bg-[#114CC8] rounded-xl shadow-lg z-[20]">
+          <div className="flex flex-col items-center mx-10 justify-center px-8 py-8 bg-[#114CC8] rounded-xl shadow-lg z-[20] mb-6 lg:mb-10">
             <h2 className="text-5xl font-bold mb-6 text-[#CBFF08]">
               Our Missions
             </h2>
