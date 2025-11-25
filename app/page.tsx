@@ -117,20 +117,20 @@ export default function Home() {
       </div>
 
       {/* Section 2 */}
-      <section className="bg-white text-gray-800 min-h-[20vh]">
-        <div className="px-6 sm:px-10 md:px-20 py-0 flex flex-col">
+      <section className="bg-white text-gray-800 min-h-[50vh] md:-translate-y-[10rem] lg:-translate-y-[15rem]">
+        <div className="px-6 sm:px-10 md:px-20 flex flex-col">
           <Image
             src="/images/about-us-picture.png"
             alt="About Us Picture"
             width={1917}
             height={1216}
-            className="w-3/4 h-fit object-cover mx-auto"
+            className="w-3/4 md:w-1/2 h-fit object-cover mx-auto"
             priority
           />
           <span className="text-3xl font-bold mb-4 text-[#114CC8] text-center">
             About Us
           </span>
-          <p className="text-lg leading-relaxed font-regular text-black text-center px-5 md:px-20">
+          <p className="text-lg leading-relaxed font-regular text-black text-center px-5 md:px-20 text-justify">
             Kami adalah platform sosial dari mahasiswa Sistem Informasi Institut
             Teknologi Sepuluh Nopember yang ingin berdampak bagi masyarakat
             dengan menyalurkan bantuan berupa makanan, minuman, dan catatan
@@ -139,14 +139,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-white text-gray-800 relative min-h-[20vh] overflow-hidden">
+      <section className="bg-white text-gray-800 relative min-h-screen overflow-hidden md:-translate-y-[10rem] lg:-translate-y-[15rem]">
         <div className="max-w-[50rem] text-center mx-auto z-[20] relative mt-[10rem]">
           {/* Vision Card Background */}
-          <div className="flex flex-col items-center justify-center mx-10 px-2 md:px-8 py-12 bg-[#114CC8] mb-20 rounded-xl shadow-lg z-[20]">
+          <div className="flex flex-col items-center justify-center mx-10  py-12 bg-[#114CC8] mb-20 rounded-xl shadow-lg z-[20]">
             <h2 className="text-5xl font-bold mb-4 text-[#CBFF08]">
               Our Visions
             </h2>
-            <p className="w-3/4 text-base leading-relaxed font-normal text-white mt-3">
+            <p className="w-3/4 text-base leading-relaxed font-normal text-white mt-3 text-justify">
               Menjadi jembatan kebaikan yang tulus, menghubungkan hati yang
               ingin berbagi dengan mereka yang membutuhkan, melalui sentuhan
               teknologi yang sederhana dan bermakna. Dengan demikian,
@@ -163,12 +163,12 @@ export default function Home() {
             {[1, 2, 3].map((num) => (
               <div
                 key={num}
-                className="rounded-lg bg-[#CBFF08] flex flex-row p-3 max-w-[35rem] w-full mx-auto items-center mb-4"
+                className="rounded-lg bg-[#CBFF08] flex flex-col md:flex-row p-3 max-w-[35rem] w-full mx-auto items-center mb-5"
               >
-                <div className="text-white rounded-lg bg-[#114CC8] py-2 px-5 font-bold text-4xl">
+                <div className="md:w-auto w-full  mb-2 md:mb-0 text-white rounded-lg bg-[#114CC8] py-2 px-5 font-bold text-4xl">
                   {num}
                 </div>
-                <p className="text-base font-normal text-black px-3 text-left">
+                <p className="text-base font-normal text-black px-3 text-justify">
                   {num === 1 &&
                     "Menciptakan ruang berbagi yang nyaman dan ikhlas, di mana setiap niat baik dapat tersalurkan semudah mengulurkan tangan"}
                   {num === 2 &&
