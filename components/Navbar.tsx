@@ -35,7 +35,7 @@ const Navbar = () => {
             width={308}
             height={54}
             alt="SIBerdampak Logo"
-            className="h-auto w-full scale-[1.3] hover:cursor-pointer"
+            className="h-auto w-full hover:cursor-pointer"
             onClick={() => (window.location.href = "/")}
           />
         </div>
