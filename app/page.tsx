@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [totalDonation, setTotalDonation] = useState(0);
-  const GOAL = 500000;
+  const GOAL = 1000000;
 
   useEffect(() => {
     const fetchTotal = async () => {
@@ -47,11 +47,6 @@ export default function Home() {
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
                   Kebaikan yang Kamu Beri, Menghidupkan Harapan Mereka
                 </h1>
-                <p className="text-base md:text-lg lg:text-xl text-gray-200 leading-relaxed">
-                  Menjadi jembatan kebaikan yang tulus, menghubungkan hati yang
-                  ingin berbagi dengan mereka yang membutuhkan, melalui sentuhan
-                  teknologi yang sederhana dan bermakna.
-                </p>
               </div>
 
               {/* Right Donation Card */}
@@ -60,7 +55,7 @@ export default function Home() {
                   <h2 className="text-xl md:text-2xl lg:text-3xl font-extrabold text-[#061E4F] leading-tight">
                     Satu Klik Kecil, untuk Mereka yang Membutuhkan
                   </h2>
-                  <p className="text-sm md:text-base lg:text-lg text-gray-600 leading-relaxed">
+                  <p className="text-sm md:text-base lg:text-lg text-gray-600 leading-relaxed text-justify">
                     Setiap donasi bukan sekadar memberi, tapi juga bentuk
                     kepedulian yang menumbuhkan harapan. Melalui SIBerdampak,
                     kamu bisa menyalurkan bantuan dengan mudah, transparan, dan
@@ -147,10 +142,8 @@ export default function Home() {
               Our Visions
             </h2>
             <p className="w-3/4 text-base leading-relaxed font-normal text-white mt-3 text-justify">
-              Menjadi jembatan kebaikan yang tulus, menghubungkan hati yang
-              ingin berbagi dengan mereka yang membutuhkan, melalui sentuhan
-              teknologi yang sederhana dan bermakna. Dengan demikian,
-              SIBerdampak mendukung peningkatan dalam SDGs poin ke-2 dan 3
+              Menjadi jembatan kebaikan yang menghubungkan mereka yang ingin
+              berbagi dengan yang membutuhkan.
             </p>
           </div>
 
@@ -170,11 +163,11 @@ export default function Home() {
                 </div>
                 <p className="text-base font-normal text-black px-3 text-justify">
                   {num === 1 &&
-                    "Menciptakan ruang berbagi yang nyaman dan ikhlas, di mana setiap niat baik dapat tersalurkan semudah mengulurkan tangan"}
+                    "Menyediakan ruang berbagi yang mudah dan ikhlas."}
                   {num === 2 &&
-                    "Merangkul komunitas dan pegiat usaha lokal untuk tumbuh bersama, merajut jaringan kebaikan yang lebih kuat hingga ke pelosok"}
+                    "Menjamin transparansi dalam setiap proses donasi."}
                   {num === 3 &&
-                    "Menjaga setiap amanah dengan penuh tanggung jawab, memastikan setiap uluran tangan sampai tujuannya dengan hati yang tenang"}
+                    "Menjaga amanah dengan memastikan bantuan sampai tepat sasaran."}
                 </p>
               </div>
             ))}

@@ -27,11 +27,20 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const DonasiPage = () => {
   const [loading, setLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState<null | number>(null);
+  const [isAnon, setIsAnon] = useState(false);
 
   const [totalDonation, setTotalDonation] = useState(0);
   const GOAL = 500000;
@@ -300,16 +309,6 @@ const DonasiPage = () => {
                   <DialogTitle className="text-[32px] max-sm:text-2xl font-bold text-[#114CC8] font-Geist">
                     Rincian Penggunaan Dana
                   </DialogTitle>
-                  <DialogDescription>
-                    <div>
-                      <Typography className="max-sm:text-sm max-md:text-[18px] text-lg font-bold text-[#151624]">
-                        Status Dana Terkumpul
-                      </Typography>
-                      <Typography className="max-sm:text-sm max-md:text-[18px] text-lg font-normal text-[#151624]">
-                        Penggalangan dana sudah terkumpul selama 3 hari
-                      </Typography>
-                    </div>
-                  </DialogDescription>
                 </DialogHeader>
 
                 <div className="grid gap-4">
@@ -395,6 +394,13 @@ const DonasiPage = () => {
                         keuntungan dari layanan ini
                       </Typography>
                     </div>
+
+                    <div className="rounded-lg p-3 mt-1">
+                      <Typography className="text-xs md:text-sm text-gray-700 leading-tight text-justify">
+                        <span className="font-bold">Contact Person: </span>{" "}
+                        Akhtar Ibrahim (+62 811-4000-660)
+                      </Typography>
+                    </div>
                   </div>
                 </div>
 
@@ -433,17 +439,42 @@ const DonasiPage = () => {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="lg:text-[14px] text-[12px] inline">
-                        Nama<span className="text-red-500">*</span>
-                      </FormLabel>
+                      <div className="flex items-center justify-between">
+                        <FormLabel className="lg:text-[14px] text-[12px] inline">
+                          Nama<span className="text-red-500">*</span>
+                        </FormLabel>
+
+                        {/* TOGGLE ANONIM */}
+                        <div className="flex items-center gap-2">
+                          <Label htmlFor="anon" className="text-xs lg:text-sm">
+                            Anonim
+                          </Label>
+                          <Switch
+                            id="anon"
+                            checked={isAnon}
+                            onCheckedChange={(checked: boolean) => {
+                              setIsAnon(checked);
+
+                              if (checked) {
+                                form.setValue("name", "Anonim");
+                              } else {
+                                form.setValue("name", "");
+                              }
+                            }}
+                          />
+                        </div>
+                      </div>
+
                       <FormControl>
                         <Input
                           type="text"
                           placeholder="Masukkan nama anda"
                           {...field}
+                          disabled={isAnon}
                           className="lg:text-[14px] text-[12px] text-[#A6ACB3] py-[6px] px-[12px] rounded-[6px]"
                         />
                       </FormControl>
+
                       <FormMessage />
                     </FormItem>
                   )}
@@ -488,6 +519,7 @@ const DonasiPage = () => {
                           <Input
                             type="text"
                             placeholder="Masukkan doa anda"
+                            maxLength={50}
                             {...field}
                             className="lg:text-[14px] text-[12px] text-[#A6ACB3] py-[6px] px-[12px] rounded-[6px]"
                           />
@@ -499,10 +531,27 @@ const DonasiPage = () => {
                 />
               </div>
 
-              {/* Paket Donasi */}
+              {/* Pilihan Jenis Donasi */}
               <div className="mt-4 flex flex-col">
-                <FormLabel className="text-[12px] lg:text-[16px] font-bold">
-                  Pilihan Paket Donasi
+                <FormLabel className="text-[12px] lg:text-[16px] font-bold flex items-center gap-2">
+                  Pilih Jenis Donasi
+                  {/* INFO BUTTON (i) */}
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          type="button"
+                          className="w-4 h-4 flex items-center justify-center rounded-full bg-gray-300 text-[10px] font-bold text-white"
+                        >
+                          i
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-[200px] text-xs">
+                        Untuk pilihan paket 15000 kami akan memberikan 3 makanan
+                        kepada orang yang membutuhkan.
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </FormLabel>
 
                 <div className="grid grid-cols-1 gap-3 mt-2">
@@ -512,7 +561,7 @@ const DonasiPage = () => {
                       type="button"
                       onClick={() => {
                         setSelectedPackage(amount);
-                        form.setValue("donation_amount", amount); // update form value
+                        form.setValue("donation_amount", amount);
                       }}
                       className={`py-2 rounded-md border font-semibold text-sm transition hover:cursor-pointer
           ${
@@ -527,26 +576,6 @@ const DonasiPage = () => {
                     </button>
                   ))}
                 </div>
-
-                <span className="text-center text-xs mx-auto my-2 text-gray-400 font-semibold">
-                  Atau
-                </span>
-                {/* Custom donation option */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSelectedPackage(null);
-                    form.setValue("donation_amount", 0);
-                  }}
-                  className={` py-2 w-full rounded-md border text-sm font-semibold transition hover:cursor-pointer
-      ${
-        selectedPackage === null
-          ? "bg-[#114CC8] text-white"
-          : "bg-white border-gray-300 text-[#114CC8]"
-      }`}
-                >
-                  Donasi Sukarela
-                </button>
               </div>
 
               <div className="mt-4">
