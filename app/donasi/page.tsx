@@ -43,7 +43,7 @@ const DonasiPage = () => {
   const [isAnon, setIsAnon] = useState(false);
 
   const [totalDonation, setTotalDonation] = useState(0);
-  const GOAL = 500000;
+  const GOAL = 1000000;
 
   useEffect(() => {
     const fetchTotal = async () => {
