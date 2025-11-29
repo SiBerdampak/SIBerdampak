@@ -576,6 +576,25 @@ const DonasiPage = () => {
                     </button>
                   ))}
                 </div>
+                <span className="text-center text-xs mx-auto my-2 text-gray-400 font-semibold">
+                  Atau
+                </span>
+                {/* Custom donation option */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedPackage(null);
+                    form.setValue("donation_amount", 0);
+                  }}
+                  className={` py-2 w-full rounded-md border text-sm font-semibold transition hover:cursor-pointer
+      ${
+        selectedPackage === null
+          ? "bg-[#114CC8] text-white"
+          : "bg-white border-gray-300 text-[#114CC8]"
+      }`}
+                >
+                  Donasi Sukarela
+                </button>
               </div>
 
               <div className="mt-4">
