@@ -121,13 +121,13 @@ export default function Home() {
             alt="About Us Picture"
             width={1917}
             height={1216}
-            className="w-3/4 md:w-1/2 h-fit object-cover mx-auto"
+            className="w-[100%] md:w-1/2 lg:w-[70%] h-fit object-cover mx-auto"
             priority
           />
           <span className="text-3xl font-bold mb-4 text-[#114CC8] text-center font-Geist">
             About Us
           </span>
-          <p className="text-lg leading-relaxed font-regular text-black text-center px-5 md:px-20 font-Geist">
+          <p className="text-lg leading-relaxed font-regular text-black text-center px-5 md:px-20 lg:px-32 font-Geist">
             Kami adalah platform sosial dari mahasiswa Sistem Informasi Institut
             Teknologi Sepuluh Nopember yang ingin berdampak bagi masyarakat
             dengan menyalurkan bantuan berupa makanan, minuman, dan catatan
