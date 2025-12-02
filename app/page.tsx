@@ -47,7 +47,7 @@ export default function Home() {
           <div className="w-full max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
               {/* Left Text Section */}
-              <div className="space-y-4 md:space-y-6" data-aos="fade-right">
+              <div className="space-y-4 md:space-y-6">
                 <p className="text-sm md:text-base lg:text-lg font-medium text-transparent md:text-[#CBFF08] tracking-wide uppercase font-Geist">
                   Kebaikan Nyata Untuk Sesama
                 </p>
