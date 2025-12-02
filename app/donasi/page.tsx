@@ -512,7 +512,7 @@ const DonasiPage = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-[12px] lg:text-[14px]">
-                        Doa untuk mereka
+                        Catatan untuk mereka
                       </FormLabel>
                       <FormControl>
                         <div className="relative">

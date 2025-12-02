@@ -4,8 +4,13 @@ import { cn } from "@/lib/utils";
 import { getTotalDonation } from "@/utils/supabase/actions";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 export default function Home() {
+  useEffect(() => {
+    AOS.init()
+  }, [])
   const [totalDonation, setTotalDonation] = useState(0);
   const GOAL = 1000000;
 
@@ -42,7 +47,7 @@ export default function Home() {
           <div className="w-full max-w-7xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
               {/* Left Text Section */}
-              <div className="space-y-4 md:space-y-6">
+              <div className="space-y-4 md:space-y-6" data-aos="fade-right">
                 <p className="text-sm md:text-base lg:text-lg font-medium text-transparent md:text-[#CBFF08] tracking-wide uppercase font-Geist">
                   Kebaikan Nyata Untuk Sesama
                 </p>
