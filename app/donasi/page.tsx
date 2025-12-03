@@ -136,16 +136,17 @@ const DonasiPage = () => {
     // Close dialog and open payment gateway
     if (typeof window.snap?.pay === "function") {
       setIsDialogOpen(false); // Close dialog here
-      window.snap.pay(token);
 
-      insertDonation({
+      await insertDonation({
         name: username || "",
         message: message || "",
         donation_amount: price || 0,
-        order_id: order_id,
+        order_id,
         email: email || "",
-        payment_status: "failed",
+        payment_status: "pending",
       });
+
+      window.snap.pay(token);
     } else {
       throw new Error("Payment gateway not available");
     }
