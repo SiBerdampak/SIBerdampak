@@ -144,7 +144,7 @@ const DonasiPage = () => {
         donation_amount: price || 0,
         order_id: order_id,
         email: email || "",
-        payment_status: "failed",
+        payment_status: "pending",
       });
     } else {
       throw new Error("Payment gateway not available");

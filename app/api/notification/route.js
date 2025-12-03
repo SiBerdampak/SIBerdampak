@@ -22,7 +22,7 @@ async function getRawBody(readable) {
 export async function POST(request) {
   try {
     // Get raw body for signature verification
-    const rawBody = await getRawBody(request.body);
+    const rawBody = await request.text();
 
     // Verify notification through Midtrans API
     const notification = await snap.transaction.notification(rawBody);
@@ -49,10 +49,14 @@ export async function POST(request) {
         await handlePendingPayment(order_id);
         break;
       case "deny":
+        console.log("Deny received — waiting for possible settlement");
+        break;
+
       case "cancel":
       case "expire":
         await handleFailedPayment(order_id);
         break;
+
       default:
         console.warn(`Unhandled status: ${transaction_status}`);
         await handleUnknownStatus(order_id, transaction_status);
