@@ -143,7 +143,7 @@ const DonasiPage = () => {
         donation_amount: price || 0,
         order_id,
         email: email || "",
-        payment_status: "pending",
+        payment_status: "success",
       });
 
       window.snap.pay(token);
