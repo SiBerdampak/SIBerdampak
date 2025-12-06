@@ -201,7 +201,7 @@ export default function Home() {
                     {num === 1 &&
                       "Menciptakan ruang berbagi yang nyaman dan ikhlas, di mana setiap niat baik dapat tersalurkan semudah mengulurkan tangan"}
                     {num === 2 &&
-                      "Merangkul komunitas dan pegiat usaha lokal untuk tumbuh bersama, merajut jaringan kebaikan yang lebih kuat hingga ke pelosok."}
+                      "Membangun kepercayaan dengan memastikan proses penyaluran bantuan yang transparan, akuntabel, dan mudah, dipantau oleh para donatur."}
                     {num === 3 &&
                       "Menjaga setiap amanah dengan penuh tanggung jawab, memastikan setiap uluran tangan sampai tujuannya dengan hati yang tenang."}
                   </p>

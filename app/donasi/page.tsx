@@ -631,8 +631,7 @@ const DonasiPage = () => {
                         </button>
                       </TooltipTrigger>
                       <TooltipContent className="max-w-[200px] text-xs">
-                        Untuk pilihan paket 15000 kami akan memberikan 3 makanan
-                        kepada orang yang membutuhkan.
+                        Untuk pilihan paket 15000 kami akan memberikan makanan, minuman, dan sticky notes.
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
