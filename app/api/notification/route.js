@@ -1,15 +1,22 @@
-import { createServiceClient } from "@/utils/supabase/client";
+import { createClient } from "@supabase/supabase-js";
 import midtransClient from "midtrans-client";
 import { NextResponse } from "next/server";
 
+
 export const dynamic = "force-dynamic"; // Prevent static behavior
 
-const supabase = createServiceClient();
+
+const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 // Initialize Midtrans client
 const snap = new midtransClient.Snap({
   isProduction: process.env.NODE_ENV === "development" ? false : true,
-  serverKey: process.env.MIDTRANS_SERVER_SECRET,
+  serverKey:
+    process.env.NODE_ENV === "development"
+      ? process.env.MIDTRANS_SERVER_SECRET
+      : process.env.MIDTRANS_SERVER_SECRET_PROD,
 });
+
 
 async function getRawBody(readable) {
   const chunks = [];
@@ -19,19 +26,33 @@ async function getRawBody(readable) {
   return Buffer.concat(chunks).toString("utf-8");
 }
 
+
 export async function POST(request) {
   try {
+    const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+    // Initialize Midtrans client
+    const snap = new midtransClient.Snap({
+      isProduction: process.env.NODE_ENV === "development" ? false : true,
+      serverKey: process.env.NODE_ENV === "development"
+      ? process.env.MIDTRANS_SERVER_SECRET
+      : process.env.MIDTRANS_SERVER_SECRET_PROD,
+    });
     // Get raw body for signature verification
     const rawBody = await request.text();
+
 
     // Verify notification through Midtrans API
     const notification = await snap.transaction.notification(rawBody);
 
+
     // Extract transaction details
     const { order_id, transaction_status, fraud_status } = notification;
 
+
     console.log(`Processing payment for Order ID: ${order_id}`);
     console.log(`Status: ${transaction_status}, Fraud Status: ${fraud_status}`);
+
 
     // Handle transaction status
     switch (transaction_status) {
@@ -52,15 +73,18 @@ export async function POST(request) {
         console.log("Deny received — waiting for possible settlement");
         break;
 
+
       case "cancel":
       case "expire":
         await handleFailedPayment(order_id);
         break;
 
+
       default:
         console.warn(`Unhandled status: ${transaction_status}`);
         await handleUnknownStatus(order_id, transaction_status);
     }
+
 
     return NextResponse.json({ received: true }, { status: 200 });
   } catch (error) {
@@ -72,10 +96,14 @@ export async function POST(request) {
   }
 }
 
+
 // Handler functions remain the same
 async function handleSuccessPayment(orderId) {
   try {
+    const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
     console.log(`Payment successful for order: ${orderId}`);
+
 
     // insertDonation({
     //   name: username || "",
@@ -85,6 +113,7 @@ async function handleSuccessPayment(orderId) {
     //   email: email || "",
     // });
 
+
     // Retrieve existing order
     // const { data: donation, error: donationError } = await supabase
     //   .from("donation")
@@ -92,30 +121,36 @@ async function handleSuccessPayment(orderId) {
     //   .eq("order_id", orderId)
     //   .single();
 
+
     const { data, error } = await supabase
       .from("donation")
       .update({ payment_status: "success" })
       .eq("order_id", orderId)
       .select();
 
+
     if (data) {
       console.log("Donation updated:", data);
     }
 
+
     if (error) {
       console.error("Error updating donation:", error);
     }
+
 
     // if (orderError || !order) {
     //   console.error("Order not found:", orderError?.message);
     //   return;
     // }
 
+
     // Update payment status (corrected update syntax)
     // const { error: paymentUpdateError } = await supabase
     //   .from("order")
     //   .update({ payment_status: "success" }) // Fixed object syntax
     //   .eq("order_id", orderId);
+
 
     // if (paymentUpdateError) {
     //   console.error(
@@ -125,12 +160,14 @@ async function handleSuccessPayment(orderId) {
     //   return;
     // }
 
+
     // Validate package name
     // const packageName = order.package_name;
     // if (!Object.values(PACKAGE_NAME).includes(packageName)) {
     //   console.error("Invalid package name:", packageName);
     //   return;
     // }
+
 
     // // Get token value
     // const tokenValue = PACKAGE_DETAILS[packageName]?.token_value;
@@ -139,6 +176,7 @@ async function handleSuccessPayment(orderId) {
     //   return;
     // }
 
+
     // // Get user data
     // const { data: user, error: userError } = await supabase
     //   .from("profiles")
@@ -146,10 +184,12 @@ async function handleSuccessPayment(orderId) {
     //   .eq("id", order.user_id)
     //   .single();
 
+
     // if (userError || !user) {
     //   console.error("User not found:", userError?.message);
     //   return;
     // }
+
 
     // // Update token amount (corrected update syntax)
     // const newTokenBalance = user.token_amount + tokenValue;
@@ -157,6 +197,7 @@ async function handleSuccessPayment(orderId) {
     //   .from("profiles")
     //   .update({ token_amount: newTokenBalance }) // Fixed object syntax
     //   .eq("id", order.user_id);
+
 
     // if (tokenUpdateError) {
     //   console.error("Token update failed:", tokenUpdateError.message);
@@ -166,13 +207,16 @@ async function handleSuccessPayment(orderId) {
   }
 }
 
+
 async function handlePendingPayment(orderId) {
   console.log(`Payment pending for order: ${orderId}`);
 }
 
+
 async function handleFailedPayment(orderId) {
   try {
     console.log(`Payment failed for order: ${orderId}`);
+
 
     // Add actual values from notification
     // const { error: statusError } = await supabase
@@ -184,9 +228,11 @@ async function handleFailedPayment(orderId) {
     //   })
     //   .eq("order_id", orderId);
 
+
     // if (statusError) {
     //   console.error("Status update failed:", statusError.message);
     // }
+
 
     const { data, error } = await supabase
       .from("donation")
@@ -194,9 +240,11 @@ async function handleFailedPayment(orderId) {
       .eq("order_id", orderId)
       .select();
 
+
     if (data) {
       console.log("Donation updated:", data);
     }
+
 
     if (error) {
       console.error("Error updating donation:", error);
@@ -206,10 +254,15 @@ async function handleFailedPayment(orderId) {
   }
 }
 
+
 async function handleFraudulentPayment(orderId) {
   console.warn(`Fraudulent payment detected for order: ${orderId}`);
 }
 
+
 async function handleUnknownStatus(orderId, status) {
   console.error(`Unknown status ${status} for order: ${orderId}`);
 }
+
+
+

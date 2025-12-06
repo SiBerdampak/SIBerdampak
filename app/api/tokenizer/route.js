@@ -1,7 +1,10 @@
+import { createClient } from "@supabase/supabase-js";
 import Midtrans from "midtrans-client";
 
-//import { NextResponse } from "next/server";
 
+//import { NextResponse } from "next/server";
+const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 let snap = new Midtrans.Snap({
   isProduction: process.env.NODE_ENV === "development" ? false : true,
   serverKey:
@@ -14,9 +17,11 @@ let snap = new Midtrans.Snap({
       : process.env.NEXT_PUBLIC_CLIENT_PROD,
 });
 
+
 export async function POST(request) {
   const { id, donationName, price, quantity, username, email } =
     await request.json();
+
 
   let parameter = {
     item_details: {
@@ -34,11 +39,17 @@ export async function POST(request) {
     },
   };
 
+
   const token = await snap.createTransactionToken(parameter);
 
+
   console.log(token);
+
 
   return Response.json({
     token,
   });
 }
+
+
+

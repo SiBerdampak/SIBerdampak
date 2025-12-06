@@ -35,15 +35,20 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useRouter } from "next/navigation";
+
 
 const DonasiPage = () => {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState<null | number>(null);
   const [isAnon, setIsAnon] = useState(false);
 
+
   const [totalDonation, setTotalDonation] = useState(0);
   const GOAL = 1000000;
+
 
   useEffect(() => {
     const fetchTotal = async () => {
@@ -51,10 +56,13 @@ const DonasiPage = () => {
       setTotalDonation(total);
     };
 
+
     fetchTotal();
   }, []);
 
+
   const percentage = Math.min(Math.round((totalDonation / GOAL) * 100), 100);
+
 
   useEffect(() => {
     // render midtrans snap token
@@ -63,19 +71,26 @@ const DonasiPage = () => {
         ? "https://app.sandbox.midtrans.com/snap/snap.js"
         : "https://app.midtrans.com/snap/snap.js";
 
-    const clientKey = process.env.NEXT_PUBLIC_CLIENT!;
+
+    const clientKey = process.env.NODE_ENV === "development"
+        ? process.env.NEXT_PUBLIC_CLIENT!
+        : process.env.NEXT_PUBLIC_CLIENT_PROD!;
+
 
     const script = document.createElement("script");
     script.src = snapScript;
     script.setAttribute("data-client-key", clientKey);
     script.async = true;
 
+
     document.body.appendChild(script);
+
 
     return () => {
       document.body.removeChild(script);
     };
   }, []);
+
 
   const generateOrderId = () => {
     // Get current timestamp (YYYYMMDDHHmmss format)
@@ -88,11 +103,14 @@ const DonasiPage = () => {
       String(now.getMinutes()).padStart(2, "0") +
       String(now.getSeconds()).padStart(2, "0");
 
+
     // Generate random 6-character string
     const randomStr = Math.random().toString(36).substring(2, 8).toUpperCase();
 
+
     return `${timestamp}-${randomStr}`;
   };
+
 
   const handlePayment = async ({
     price,
@@ -109,12 +127,15 @@ const DonasiPage = () => {
   }) => {
     // Initiate payment
 
+
     if (price === 0) {
       alert("Jumlah donasi harus lebih dari 0");
       return;
     }
 
+
     const order_id = generateOrderId();
+
 
     const response = await fetch("/api/tokenizer", {
       method: "POST",
@@ -126,30 +147,70 @@ const DonasiPage = () => {
         quantity: 1,
         username: username,
         email: email,
+        message: message || '',
       }),
     });
 
+
     if (!response.ok) throw new Error("Payment initiation failed");
+
 
     const { token } = await response.json();
 
+
     // Close dialog and open payment gateway
     if (typeof window.snap?.pay === "function") {
-      setIsDialogOpen(false); // Close dialog here
-      window.snap.pay(token);
+      setIsDialogOpen(false);
 
-      insertDonation({
-        name: username || "",
-        message: message || "",
-        donation_amount: price || 0,
-        order_id: order_id,
-        email: email || "",
-        payment_status: "pending",
+
+      (window.snap as any).pay(token, {
+        // 1. SUCCESS: Hanya redirect jika BENAR-BENAR SUKSES
+        onSuccess: async function(result: any) {
+          console.log("Payment Success", result);
+          try {
+            await insertDonation({
+              name: username,          
+              email: email,            
+              message: message,        
+              donation_amount: price,  
+              order_id: order_id,      
+              payment_status: "success"
+            });
+           
+            console.log("Data berhasil disimpan via Frontend");
+          } catch (error) {
+            console.error("Gagal insert via Frontend:", error);
+          }
+
+
+          window.location.href = "/donasi/terimakasih";
+        },
+
+
+        onPending: function(result: any) {
+          console.log("Payment Pending", result);
+          alert("Menunggu pembayaran! Silakan selesaikan pembayaran Anda via Virtual Account/Merchant yang dipilih.");
+        },
+
+
+        onError: function(result: any) {
+          console.error("Payment Error", result);
+          alert("Pembayaran gagal. Silakan coba lagi.");
+        },
+
+
+        onClose: function() {
+          console.log("Customer closed the popup without finishing the payment");
+          alert("Anda belum menyelesaikan pembayaran. Silakan klik tombol Donasi lagi jika ingin melanjutkan.");
+        }
       });
+
+
     } else {
       throw new Error("Payment gateway not available");
     }
   };
+
 
   const form = useForm({
     resolver: zodResolver(detailDonasi),
@@ -161,9 +222,11 @@ const DonasiPage = () => {
     },
   });
 
+
   const onSubmit = async (data: DetailDonasiSchema) => {
     //LOGIN LOGIC HERE
     setLoading(true);
+
 
     try {
       await handlePayment({
@@ -177,9 +240,11 @@ const DonasiPage = () => {
       console.log(error);
     }
 
+
     setLoading(false);
     // console.log(data);
   };
+
 
   return (
     <div className="relative min-h-screen bg-[linear-gradient(270deg,#8BB0FF_0%,#114CC8_50%,#082562_100%)] overflow-hidden">
@@ -234,11 +299,13 @@ const DonasiPage = () => {
           </div>
         </div>
 
+
         <div className="bg-white flex flex-col justify-center row-span-3 xl:row-span-1 rounded-t-2xl xl:rounded-2xl shadow-xl p-[50px] xl:p-[72px] w-full h-full xl:h-fit z-10 xl:order-2">
           {/* Judul */}
           <Typography className="lg:text-5xl max-sm:text-xl text-3xl font-black">
             Ayo Berdonasi
           </Typography>
+
 
           {/* Donasi terkumpul */}
           <div className="mt-6">
@@ -247,6 +314,7 @@ const DonasiPage = () => {
                 Donasi terkumpul
               </Typography>
             </div>
+
 
             <div className="flex items-end justify-between">
               <div>
@@ -264,6 +332,7 @@ const DonasiPage = () => {
               </div>
             </div>
 
+
             {/* Progress Bar */}
             <div className="w-full h-2 bg-gray-200 rounded-full mt-2">
               <div
@@ -272,6 +341,7 @@ const DonasiPage = () => {
               ></div>
             </div>
           </div>
+
 
           {/* Tombol */}
           <div className="grid grid-cols-1 gap-4 mt-4">
@@ -311,6 +381,7 @@ const DonasiPage = () => {
                   </DialogTitle>
                 </DialogHeader>
 
+
                 <div className="grid gap-4">
                   {/* Total Amount */}
                   <div className="grid gap-3">
@@ -328,6 +399,7 @@ const DonasiPage = () => {
                       </span>
                     </div>
                   </div>
+
 
                   {/* Breakdown Sections */}
                   <div className="grid gap-3">
@@ -359,6 +431,7 @@ const DonasiPage = () => {
                       </div>
                     </div>
 
+
                     {/* 5% Section */}
                     <div className="bg-blue-50 rounded-lg p-4">
                       <div className="flex items-start gap-3">
@@ -384,6 +457,7 @@ const DonasiPage = () => {
                       </div>
                     </div>
 
+
                     {/* Note */}
                     <div className="bg-yellow-50 rounded-lg p-3 mt-1">
                       <Typography className="text-xs md:text-sm text-gray-700 leading-tight text-justify">
@@ -395,6 +469,7 @@ const DonasiPage = () => {
                       </Typography>
                     </div>
 
+
                     <div className="rounded-lg p-3 mt-1">
                       <Typography className="text-xs md:text-sm text-gray-700 leading-tight text-justify">
                         <span className="font-bold">Contact Person: </span>{" "}
@@ -403,6 +478,7 @@ const DonasiPage = () => {
                     </div>
                   </div>
                 </div>
+
 
                 <DialogFooter className="flex-col sm:flex-col gap-3">
                   <Button
@@ -430,6 +506,7 @@ const DonasiPage = () => {
             </Dialog>
           </div>
 
+
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               {/* Email */}
@@ -444,6 +521,7 @@ const DonasiPage = () => {
                           Nama<span className="text-red-500">*</span>
                         </FormLabel>
 
+
                         {/* TOGGLE ANONIM */}
                         <div className="flex items-center gap-2">
                           <Label htmlFor="anon" className="text-xs lg:text-sm">
@@ -455,6 +533,7 @@ const DonasiPage = () => {
                             onCheckedChange={(checked: boolean) => {
                               setIsAnon(checked);
 
+
                               if (checked) {
                                 form.setValue("name", "Anonim");
                               } else {
@@ -464,6 +543,7 @@ const DonasiPage = () => {
                           />
                         </div>
                       </div>
+
 
                       <FormControl>
                         <Input
@@ -475,11 +555,13 @@ const DonasiPage = () => {
                         />
                       </FormControl>
 
+
                       <FormMessage />
                     </FormItem>
                   )}
                 />
               </div>
+
 
               <div className="mt-4">
                 <FormField
@@ -503,6 +585,7 @@ const DonasiPage = () => {
                   )}
                 />
               </div>
+
 
               {/* Password with show/hide toggle */}
               <div className="mt-4">
@@ -531,6 +614,7 @@ const DonasiPage = () => {
                 />
               </div>
 
+
               {/* Pilihan Jenis Donasi */}
               <div className="mt-4 flex flex-col">
                 <FormLabel className="text-[12px] lg:text-[16px] font-bold flex items-center gap-2">
@@ -553,6 +637,7 @@ const DonasiPage = () => {
                     </Tooltip>
                   </TooltipProvider>
                 </FormLabel>
+
 
                 <div className="grid grid-cols-1 gap-3 mt-2">
                   {[15000].map((amount, idx) => (
@@ -597,6 +682,7 @@ const DonasiPage = () => {
                 </button>
               </div>
 
+
               <div className="mt-4">
                 <FormField
                   control={form.control}
@@ -639,6 +725,7 @@ const DonasiPage = () => {
                 />
               </div>
 
+
               {/* Submit Button */}
               <div className="mt-4">
                 <Button
@@ -660,4 +747,7 @@ const DonasiPage = () => {
   );
 };
 
+
 export default DonasiPage;
+
+
