@@ -729,13 +729,15 @@ const DonasiPage = () => {
               <div className="mt-4">
                 <Button
                   type="submit"
-                  disabled={loading}
+                  // disabled={loading}
+                  disabled
                   className={cn(
-                    "w-full hover:cursor-pointer rounded-[6px] bg-[#114CC8] hover:bg-[#1040a7] text-white transition px-4 py-2",
-                    loading && "opacity-60"
+                    "w-full hover:cursor-not-allowed rounded-[6px] bg-[#114CC8] hover:bg-[#1040a7] text-white transition px-4 py-2",
+                    "cursor-not-allowed",
+                    // loading && "opacity-60"
                   )}
                 >
-                  {loading ? "Loading..." : "Donasi"}
+                  Closed
                 </Button>
               </div>
             </form>
